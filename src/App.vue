@@ -1,14 +1,15 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/" hidden>Home</router-link>
-      <router-link to="/landing" hidden>Login</router-link>
+  <div id="app" class="uk-background">
+    <div id="nav" class="uk-background-secondary uk-light uk-panel">
+      <router-link class="nav-links" to="/">WatdeCom</router-link>
+      <router-link class="nav-links" to="/landing">Login</router-link>
     </div>
-    <router-view/>
+  <router-view/>
   </div>
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -18,15 +19,23 @@
 }
 
 #nav {
-  padding: 30px;
+  font-family: 'Alfa Slab One', cursive;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 20px;
+  z-index: 2;
 }
 
 #nav a {
-  font-weight: bold;
-  color: #2c3e50;
+  text-decoration: none;
+  color: #f8f9fa;
+  font-size: 50px;
+  margin: 0px 20px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+#nav a:hover {
+  color: #ff9966;
+  transition: 300ms;
 }
 </style>

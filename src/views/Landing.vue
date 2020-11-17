@@ -16,7 +16,7 @@
                 <input v-model="loginPayload.password" type="text" class="uk-input" placeholder="Password" />
               </div>
               <div class="uk-form-controls">
-                <button type="submit" class="uk-button uk-button-primary">Login</button>
+                <button type="submit" class="uk-button uk-button-default">Login</button>
               </div>
             </form>
             <hr>
@@ -53,7 +53,7 @@
               </div>
               <div class="uk-form-controls">
                 <div class="buttons">
-                  <button type="submit" class="uk-button uk-button-primary">Register</button>
+                  <button type="submit" class="uk-button uk-button-default">Register</button>
                   <button class="uk-button uk-button-danger" @click="toLogin">Cancel</button>
                 </div>
               </div>
@@ -112,6 +112,21 @@ form {
   justify-content: space-evenly;
 }
 
+.uk-button {
+  font-family: 'Alfa Slab One', cursive;
+}
+
+.uk-button-default {
+  background-color: black;
+  color: white;
+}
+
+.uk-button-default:hover {
+  transition: 300ms;
+  background-color: #ff9966;
+  color: black;
+}
+
 .uk-card {
   height: auto;
 }
@@ -129,6 +144,7 @@ form {
 }
 
 .uk-text-lead {
+  font-family: 'Alfa Slab One', cursive;
   font-size: 4em;
 }
 </style>

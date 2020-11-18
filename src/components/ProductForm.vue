@@ -22,7 +22,7 @@ export default {
   name: 'product-form',
   props: ['product'],
   methods: {
-    addCarts(payload){
+    addCarts (payload) {
       this.$store.dispatch('addCarts', payload)
     }
   }

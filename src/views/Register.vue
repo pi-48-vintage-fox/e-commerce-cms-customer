@@ -11,14 +11,14 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
-import RegisterForm from "@/components/RegisterForm.vue";
+import RegisterForm from '@/components/RegisterForm.vue'
 export default {
-  name: "Register",
+  name: 'Register',
   components: {
     NavBar,
     RegisterForm
-  },
-};
+  }
+}
 </script>
 
 <style>

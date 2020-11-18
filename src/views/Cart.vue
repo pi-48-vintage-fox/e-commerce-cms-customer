@@ -3,7 +3,7 @@
     <NavBar />
     <br>
     <div class="carts">
-      <CartForm 
+      <CartForm
         v-for="cart in fetchCarts"
         :key="cart.id"
         :cart="cart"
@@ -13,26 +13,26 @@
 </template>
 
 <script>
-import CartForm from "@/components/CartForm.vue";
-import NavBar from "@/components/NavBar.vue";
+import CartForm from '@/components/CartForm.vue'
+import NavBar from '@/components/NavBar.vue'
 export default {
-  name: "Carts",
+  name: 'Carts',
   components: {
     CartForm,
-    NavBar,
+    NavBar
   },
   computed: {
-    fetchCarts() {
-      return this.$store.state.carts;
+    fetchCarts () {
+      return this.$store.state.carts
     },
     fetchProducts () {
-      return this.$store.state.products;
+      return this.$store.state.products
     }
   },
-  created() {
-    this.$store.dispatch("fetchCarts");
-  },
-};
+  created () {
+    this.$store.dispatch('fetchCarts')
+  }
+}
 </script>
 
 <style>

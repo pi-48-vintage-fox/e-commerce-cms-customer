@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -29,6 +30,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          Swal.fire('Login Sukses!')
           console.log(data)
           localStorage.setItem('access_token', data.access_token)
           router.push('/')
@@ -38,7 +40,7 @@ export default new Vuex.Store({
         })
     },
 
-    register(context, payload) {
+    register (context, payload) {
       axios({
         method: 'POST',
         url: 'http://localhost:3000/register',
@@ -47,12 +49,12 @@ export default new Vuex.Store({
           password: payload.password
         }
       })
-      .then(({data}) => {
-        router.push('/login')
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          router.push('/login')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
 
     fetchProducts (context, payload) {
@@ -81,16 +83,16 @@ export default new Vuex.Store({
           access_token: token
         }
       })
-      .then(({ data }) => {
-        context.commit('SET_CARTS', data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(({ data }) => {
+          context.commit('SET_CARTS', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
 
     addCarts (context, payload) {
-      const  token = localStorage.getItem('access_token')
+      const token = localStorage.getItem('access_token')
       console.log(payload, '<<<<<<< buat ke Addcarts')
       axios({
         method: 'POST',
@@ -102,19 +104,26 @@ export default new Vuex.Store({
           quantity: payload.quantity
         }
       })
-      .then(({data}) => {
-        console.log(data,'<<<<<<<< ini data di addcarts');
-        context.dispatch('fetchCarts')
-        // router.push('/carts')
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(({ data }) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your item has been added to carts',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          console.log(data, '<<<<<<<< ini data di addcarts')
+          context.dispatch('fetchCarts')
+          // router.push('/carts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
 
     tambah (context, payload) {
-      console.log(payload, '<<<<<<<< ini payload cuy');
-      let qty = payload.quantity
+      console.log(payload, '<<<<<<<< ini payload cuy')
+      const qty = payload.quantity
       const token = localStorage.getItem('access_token')
       axios({
         method: 'PATCH',
@@ -123,19 +132,19 @@ export default new Vuex.Store({
           access_token: token
         },
         data: {
-          quantity: qty + 1 
+          quantity: qty + 1
         }
       })
-      .then(({data}) => {
-        context.dispatch('fetchCarts')
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          context.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
 
     kurang (context, payload) {
-      let qty = payload.quantity
+      const qty = payload.quantity
       const token = localStorage.getItem('access_token')
       axios({
         method: 'PATCH',
@@ -144,15 +153,15 @@ export default new Vuex.Store({
           access_token: token
         },
         data: {
-          quantity: qty - 1 
+          quantity: qty - 1
         }
       })
-      .then(({data}) => {
-        context.dispatch('fetchCarts')
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          context.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
 
     deleteCart (context, id) {
@@ -162,14 +171,14 @@ export default new Vuex.Store({
         url: `http://localhost:3000/carts/${id}`,
         headers: {
           access_token: token
-        },
+        }
       })
-      .then(({data}) => {
-        context.dispatch('fetchCarts')
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          context.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
   },

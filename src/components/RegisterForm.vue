@@ -33,22 +33,22 @@
 
 <script>
 export default {
-  name: "Register-form",
-  data() {
+  name: 'Register-form',
+  data () {
     return {
-      email: "",
-      password: "",
-    };
+      email: '',
+      password: ''
+    }
   },
   methods: {
-    register(){
+    register () {
       this.$store.dispatch('register', {
         email: this.email,
         password: this.password
       })
     }
   }
-};
+}
 </script>
 
 <style>

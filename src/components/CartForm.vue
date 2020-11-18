@@ -29,20 +29,20 @@
 
 <script>
 export default {
-  name: "Cart-form",
-  props: ["cart"],
+  name: 'Cart-form',
+  props: ['cart'],
   methods: {
-    tambah(payload){
+    tambah (payload) {
       this.$store.dispatch('tambah', payload)
     },
-    kurang(payload){
+    kurang (payload) {
       this.$store.dispatch('kurang', payload)
     },
-    deleteCart(id){
+    deleteCart (id) {
       this.$store.dispatch('deleteCart', id)
     }
   }
-};
+}
 </script>
 
 <style>

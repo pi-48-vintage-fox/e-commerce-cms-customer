@@ -60,20 +60,20 @@
 
 <script>
 export default {
-  name: "NavBar",
+  name: 'NavBar',
   methods: {
-    login(){
-      this.$router.push("/login");
+    login () {
+      this.$router.push('/login')
     },
-    logout() {
-      localStorage.clear();
-      this.$router.push("/login");
+    logout () {
+      localStorage.clear()
+      this.$router.push('/login')
     },
-    fetchCarts() {
-      this.$router.push("/carts");
-    },
-  },
-};
+    fetchCarts () {
+      this.$router.push('/carts')
+    }
+  }
+}
 </script>
 
 <style>

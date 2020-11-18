@@ -10,15 +10,58 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative; 
 }
-.category-caption{
-  position: absolute;
-  bottom: 10%;  
+.cat-bg{
   flex-direction: column; 
   display: flex;
   align-items: center;
   justify-content: center;  
+  background-color: #f6f6f6;
+  width:100%;  
+}
+.category-caption{
+  flex-direction: column; 
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  position: absolute;
+  bottom: 10%;  
 }
 .text-space{
   letter-spacing: 5px;
+}
+.text-space3{
+  letter-spacing: 3px;
+}
+.text-space2{
+  letter-spacing: 2px;
+}
+.footer{
+  background-color: hsl(0, 0%, 60%);
+  padding: 1.5rem 1.5rem 1rem 1rem;
+  margin-top: 1rem;
+}
+.btn-tan{
+  color:#f6f6f6;
+  background-color: #d6af83;
+}
+.button{
+  border-radius: 0;
+  padding:1.5rem;
+}
+.promo{
+  background-color: rgb(241, 241, 241);
+  position: relative;
+}
+.promo-caption{
+  position: absolute;
+  top:0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.4);
 }

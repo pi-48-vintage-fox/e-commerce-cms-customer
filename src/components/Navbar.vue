@@ -30,7 +30,11 @@
 
         <div class="navbar-end">
           <div class="navbar-item">
-            <i class="fas fa-shopping-bag mr-1"></i>
+            <i class="fas fa-heart mr-2"></i>
+            <p class="is-size-6">Wishlist</p>
+          </div>
+          <div class="navbar-item">
+            <i class="fas fa-shopping-bag mr-2"></i>
             <p class="is-size-6">My Cart</p>
           </div>
         </div>

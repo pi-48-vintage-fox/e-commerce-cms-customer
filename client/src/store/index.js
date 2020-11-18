@@ -6,11 +6,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    carts: [],
+    access_token: localStorage.access_token
   },
   mutations: {
     SET_PRODUCTS (state, prodData) {
       state.products = prodData
+    },
+    SET_CARTS (state, cartData) {
+      state.carts = cartData
     }
   },
   actions: {
@@ -57,6 +62,43 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data)
           localStorage.setItem('access_token', data.access_token)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    addCart (context, payload) {
+      axios({
+        method: 'POST',
+        url: '/carts',
+        data: {
+          ProductId: payload.ProductId,
+          quantity: payload.quantity
+        },
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    showCart (context, payload) {
+      axios({
+        method: 'GET',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          context.commit('SET_CARTS', data)
         })
         .catch(err => {
           console.log(err)

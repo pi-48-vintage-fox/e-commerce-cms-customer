@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Navbar></Navbar>
-    <div class="container d-flex justify-content-around my-3">
+    <div class="container my-3">
       <div class="row">
         <ProductList
           v-for="product in $store.state.products"

@@ -86,6 +86,7 @@ export default {
             icon: 'success',
             title: 'Logged in successfully'
           })
+          this.toHome()
         })
         .catch((err) => {
           console.log(err)

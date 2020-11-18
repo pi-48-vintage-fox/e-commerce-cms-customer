@@ -16,7 +16,7 @@
         >
       </li>
       <li class="nav-item" v-if="access_token">
-        <a class="nav-link" href="#"
+        <a class="nav-link" href="#" @click.prevent="toCart"
           >Cart</a
         >
       </li>
@@ -42,6 +42,9 @@ export default {
     }
   },
   methods: {
+    backHome () {
+      this.$router.push('/')
+    },
     toRegister () {
       this.$router.push('/register')
     },
@@ -51,6 +54,9 @@ export default {
     logout () {
       localStorage.clear()
       this.toLogin()
+    },
+    toCart () {
+      this.$router.push('/carts')
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="col-4 my-2">
-    <div class="card border border-dark" style="width: 18rem; height: 500px; overflow">
+    <div class="card" style="width: 18rem; height: 500px; overflow">
       <img :src="product.image_url" style="object-fit: cover; height: 300px" class="card-img-top" alt="" />
       <div class="card-body text-left">
         <h3 class="card-title" data-toggle="tooltip" data-placement="top" :title="product.name">{{ dottedProdName }}</h3>
@@ -9,7 +9,7 @@
           Stock: {{ product.stock }}
         </p>
       </div>
-      <a href="" class="btn py-2 rounded-bottom">Add To Cart</a>
+      <a href="" class="btn btn-custom btn-block">Add To Cart</a>
     </div>
   </div>
 </template>

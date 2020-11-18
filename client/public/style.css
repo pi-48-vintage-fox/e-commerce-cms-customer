@@ -12,3 +12,13 @@ body {
   width: 100%;
   max-width: 360px;
 }
+
+.btn-custom {
+  color: #343a40;
+  border-color: white;
+}
+
+.btn-custom:hover{
+  color: white;
+  background-color: #343a40;
+}

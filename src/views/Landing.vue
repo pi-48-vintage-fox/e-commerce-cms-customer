@@ -2,29 +2,29 @@
   <div class="landing">
     <div class="uk-section">
       <div class="uk-container">
-        <div class="uk-position-center login-card">
+        <div class="uk-position-center landing-card">
           <!-- Login Section -->
-          <div class="uk-card uk-card-default uk-card-body uk-animation-fade" v-show="section === 'login'">
+          <div class="uk-card uk-card-default uk-card-body uk-animation-fade" v-show="section==='login'">
             <h1 class="uk-text-lead">Login</h1>
             <form @submit.prevent="login">
               <label class="uk-form-label">Email: </label>
               <div class="uk-form-controls">
-                <input v-model="loginPayload.email" type="text" class="uk-input" placeholder="Email" />
+                <input v-model="loginPayload.email" type="text" class="uk-input" placeholder="Email" autocomplete="off" />
               </div>
               <label class="uk-form-label">Password: </label>
               <div class="uk-form-controls">
-                <input v-model="loginPayload.password" type="text" class="uk-input" placeholder="Password" />
+                <input v-model="loginPayload.password" type="password" class="uk-input" placeholder="Password" autocomplete="off" />
               </div>
               <div class="uk-form-controls">
                 <button type="submit" class="uk-button uk-button-default">Login</button>
               </div>
             </form>
             <hr>
-            Don't have any account ? <a href="#" @click.prevent="toRegister">Register now</a>
+            Don't have any account ? <a href="#" id="register-now" class="uk-button uk-button-text" @click.prevent="toRegister">Register now</a>
           </div>
 
           <!-- Register Section -->
-          <div class="uk-card uk-card-default uk-card-body uk-animation-fade" v-show="section === 'register'">
+          <div class="uk-card uk-card-default uk-card-body uk-animation-fade" v-show="section==='register'">
             <h1 class="uk-text-lead">Register</h1>
             <form @submit.prevent="register">
               <label class="uk-form-label">First Name: </label>
@@ -38,7 +38,7 @@
               <label class="uk-form-label">Gender: </label>
               <div class="uk-form-controls">
                 <select v-model="registerPayload.gender" class="uk-select" placeholder="Gender">
-                  <option value="Any">Any</option>
+                  <option value="Any">--Any--</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
               </select>
@@ -49,7 +49,7 @@
               </div>
               <label class="uk-form-label">Password: </label>
               <div class="uk-form-controls">
-                <input v-model="registerPayload.password" type="text" class="uk-input" placeholder="Password" />
+                <input v-model="registerPayload.password" type="password" class="uk-input" placeholder="Password" />
               </div>
               <div class="uk-form-controls">
                 <div class="buttons">
@@ -87,6 +87,37 @@ export default {
   methods: {
     login () {
       this.$store.dispatch('login', this.loginPayload)
+        .then(result => {
+          localStorage.setItem('token', result.data.token)
+          localStorage.setItem('email', result.data.email)
+          this.loginPayload = {
+            email: '',
+            password: ''
+          }
+          this.$store.commit('LOGIN', true)
+          this.$store.dispatch('getWishlist')
+          this.$store.dispatch('getCart')
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    register () {
+      this.$store.dispatch('register', this.registerPayload)
+        .then(() => {
+          this.section = 'login'
+          this.registerPayload = {
+            first_name: '',
+            last_name: '',
+            gender: 'Any',
+            email: '',
+            password: ''
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     toRegister () {
       this.section = 'register'
@@ -103,7 +134,12 @@ form {
   margin-bottom: 50px;
 }
 
-.login-card {
+#register-now {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  margin-bottom: 1px;
+}
+
+.landing-card {
   width: 30rem;
 }
 
@@ -129,6 +165,7 @@ form {
 
 .uk-card {
   height: auto;
+  z-index: 3;
 }
 
 .uk-form-controls {

@@ -8,7 +8,7 @@
           </div>
           <div class="card-body">
             <img :src="product.image_url" alt="" class="card-img h-100">
-            <form @submit.prevent="addToCart" class="mt-5">
+            <form @submit.prevent="buy" class="mt-5">
               <div class="row">
                 <div class="col-6">
                   <div class="form-group">
@@ -20,6 +20,8 @@
                 </div>
               </div>
             </form>
+            <p>{{ product.id }}</p>
+            <a href="" @click.prevent="findCartById(product.id)" class="btn btn-info card-text">Add to cart</a>
           </div>
         </div>
       </div>
@@ -48,7 +50,8 @@ export default {
       }
       this.$store.dispatch('buy', buyProduct)
         .then(({ data }) => {
-          this.$router.push(`/detail/${id}/checkout`)
+          this.$store.dispatch('deleteCart', buyProduct)
+          location.reload()
         })
         .catch(err => {
           if (err.response.status === 500) {
@@ -56,20 +59,18 @@ export default {
           }
         })
     },
-    addToCart () {
-      const accessToken = localStorage.getItem('access_token')
+    findCartById (id) {
       const payload = {
-        ProductId: this.product.id,
-        qty: this.stock
+        ProductId: id,
+        qty: +this.stock
       }
-      console.log(payload)
-      this.$store.dispatch('addCart', payload)
-        .then(({ data }) => {
-          if (!accessToken) {
-            this.$router.push({ name: 'Login' })
-          }
-        })
-        .catch(console.log)
+      console.log(payload, '<<< detail')
+      const accessToken = localStorage.getItem('access_token')
+      if (accessToken) {
+        this.$store.dispatch('findCartById', payload)
+      } else {
+        this.$router.push({ name: 'Login' })
+      }
     }
   },
   computed: {

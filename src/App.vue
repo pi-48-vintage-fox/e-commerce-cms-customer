@@ -11,16 +11,20 @@
             <li v-if="role === 'admin'" class="nav-item">
               <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
             </li>
-            <li v-if="!access_token" class="nav-item">
-              <router-link to="/login" class="nav-link">Login</router-link>
-            </li>
-            <li v-if="access_token" class="nav-item">
-              <a href="/" @click="logout" class="nav-link">Logout</a>
-            </li>
-            <li v-if="role === 'customer'" class="nav-item">
-              <router-link to="/cart"  class="nav-link">Cart</router-link>
-            </li>
           </ul>
+          <span class="ml-auto">
+            <ul class="navbar-nav mr-sm-2">
+              <li v-if="!access_token" class="nav-item">
+              <router-link to="/login" class="nav-link">Login</router-link>
+              </li>
+              <li v-if="access_token" class="nav-item">
+                <a href="/" @click="logout" class="nav-link">Logout</a>
+              </li>
+              <li v-if="role === 'customer'" class="nav-item">
+                <router-link to="/cart"  class="nav-link"><i class="fas fa-shopping-cart"></i><span v-if="carts.length > 0" class="total-cart">{{ carts.length }}</span></router-link>
+              </li>
+            </ul>
+          </span>
         </div>
       </div>
     </nav>
@@ -39,6 +43,19 @@ export default {
   methods: {
     logout () {
       localStorage.clear()
+    },
+    fetchCart () {
+      this.$store.dispatch('fetchCart')
+    }
+  },
+  computed: {
+    carts () {
+      return this.$store.state.carts
+    }
+  },
+  created () {
+    if (this.access_token) {
+      this.fetchCart()
     }
   }
 }
@@ -54,5 +71,20 @@ export default {
 
 a {
     text-decoration: none !important;
+}
+
+.total-cart {
+  padding: 5px;
+  color:#c0392b;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 1000;
+  position: absolute;
+  top: 3px;
+  margin-left: -9px;
+}
+
+.fa-shopping-cart {
+  color:#7f8c8d;
 }
 </style>

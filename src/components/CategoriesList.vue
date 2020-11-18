@@ -1,13 +1,19 @@
 <template>
   <div class="category-list">
-      <li class="list-group-item"> <a href="">{{ category.name }}</a></li>
+      <li class="list-group-item"> <a href="" @click.prevent="filterProduct(category.name)">{{ category.name }}</a></li>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Categories',
-  props: ['category']
+  props: ['category'],
+  methods: {
+    filterProduct (category) {
+      console.log(category)
+      this.$store.getters.categoryFilter(category)
+    }
+  }
 }
 </script>
 

@@ -4,9 +4,9 @@
       <img class="card-img-top" :src="product.image_url" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"><a href="#" @click.prevent="detailProduct(product.id)">{{ product.name }}</a></h5>
-          <a href="" @click.prevent="addToCart(product.id)" class="btn btn-info card-text">Add to cart</a>
+          <a href="" @click.prevent="findCartById(product.id)" class="btn btn-info card-text">Add to cart</a>
           <span class="badge badge-primary ml-5 card-text">{{ product.Category.name }}</span>
-          <p class="card-text mt-3">{{product.stock}}</p>
+          <p class="card-text mt-3">Available: {{product.stock}}</p>
       </div>
       <div class="card-footer">
         <p class="card-text">{{ product.price }}</p>
@@ -23,16 +23,17 @@ export default {
     detailProduct (id) {
       this.$router.push({ name: 'Detail', params: { id } })
     },
-    addToCart (id) {
+    findCartById (id) {
       const payload = {
         ProductId: id,
         qty: 1
       }
-      this.$store.dispatch('addCart', payload)
-        .then(({ data }) => {
-          console.log(data)
-        })
-        .catch(console.log)
+      const accessToken = localStorage.getItem('access_token')
+      if (accessToken) {
+        this.$store.dispatch('findCartById', payload)
+      } else {
+        this.$router.push({ name: 'Login' })
+      }
     }
   }
 }

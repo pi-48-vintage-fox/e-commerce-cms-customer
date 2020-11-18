@@ -1,6 +1,8 @@
 {
   "projects": {
+    "1": "awdaw-b0c8a",
     "2": "e-commerce-ead5d",
-    "default": "e-commerce-cms-ff982"
+    "default": "e-commerce-cms-ff982",
+    "customers": "awdaw-b0c8a"
   }
 }

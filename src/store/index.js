@@ -11,7 +11,8 @@ export default new Vuex.Store({
     product: {},
     categories: [],
     banners: [],
-    carts: []
+    carts: [],
+    filterProducts: []
   },
   mutations: {
     getProducts (state, payload) {
@@ -175,9 +176,28 @@ export default new Vuex.Store({
         })
         .catch(console.log)
     },
+    findCartById (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        url: `/cart/${+payload.ProductId}`,
+        method: 'GET',
+        headers: {
+          access_token: accessToken
+        }
+      })
+        .then(({ data }) => {
+          console.log(data, '<< store')
+          if (data) {
+            this.dispatch('patchCart', payload)
+          } else if (!data) {
+            this.dispatch('addCart', payload)
+          }
+        })
+        .catch(console.log)
+    },
     addCart (context, payload) {
       const accessToken = localStorage.getItem('access_token')
-      return axios({
+      axios({
         url: '/cart',
         method: 'POST',
         headers: {
@@ -188,14 +208,48 @@ export default new Vuex.Store({
           qty: +payload.qty
         }
       })
+        .then(({ data }) => {
+          console.log(data, '<< add')
+          location.reload()
+        })
+        .catch(console.log)
+    },
+    patchCart (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        url: `/cart/${payload.ProductId}`,
+        method: 'PATCH',
+        headers: {
+          access_token: accessToken
+        },
+        data: {
+          qty: +payload.qty
+        }
+      })
+        .then(({ data }) => {
+          console.log(data, '<< patch')
+          location.reload()
+        })
+        .catch(console.log)
+    },
+    deleteCart (context, payload) {
+      return axios({
+        url: `/cart/${+payload.id}`,
+        method: 'DELETE',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
     }
   },
   modules: {
   },
   getters: {
     categoryFilter: (state) => (category) => {
-      return state.products.filter(el => {
-        return el.Category.name === category
+      return state.products.filter(product => {
+        if (product.category === category) {
+          state.filterProducts = product
+        }
       })
     }
   }

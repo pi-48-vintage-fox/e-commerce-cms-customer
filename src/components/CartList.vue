@@ -11,7 +11,7 @@
             <h5 class="card-text">{{ cart.Product.price }}</h5>
             <h5 class="card-text">Subtotal:</h5>
             <p class="card-text">{{ subtotal }}</p>
-            <form @submit.prevent="" class="mt-5">
+            <form @submit.prevent="buy" class="mt-5">
               <div class="row">
                 <div class="col-6">
                   <div class="form-group">
@@ -38,7 +38,25 @@ export default {
       subtotal: this.cart.gty * this.cart.Product.price
     }
   },
-  props: ['cart']
+  props: ['cart'],
+  methods: {
+    buy () {
+      const buyProduct = {
+        id: +this.cart.ProductId,
+        stock: this.cart.gty
+      }
+      this.$store.dispatch('buy', buyProduct)
+        .then(({ data }) => {
+          this.$store.dispatch('deleteCart', buyProduct)
+          location.reload()
+        })
+        .catch(err => {
+          if (err.response.status === 500) {
+            this.$router.push({ name: 'Login' })
+          }
+        })
+    }
+  }
 }
 </script>
 

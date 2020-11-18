@@ -52,6 +52,9 @@ export default {
     },
     categories () {
       return this.$store.state.categories
+    },
+    filterProduct () {
+      return this.$store.state.filterProducts
     }
   },
   created () {

@@ -2,20 +2,21 @@
   <div>
     <NavBar />
     <div class="ketengah">
-      <h1>Login Form</h1>
-      <LoginForm />
+      <h1>Register From</h1>
+
+      <RegisterForm />
     </div>
   </div>
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
-import LoginForm from "@/components/LoginForm.vue";
+import NavBar from '@/components/NavBar.vue'
+import RegisterForm from "@/components/RegisterForm.vue";
 export default {
-  name: "Login",
+  name: "Register",
   components: {
     NavBar,
-    LoginForm,
+    RegisterForm
   },
 };
 </script>

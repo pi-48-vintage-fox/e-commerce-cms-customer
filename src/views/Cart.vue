@@ -1,8 +1,8 @@
 <template>
   <div>
     <NavBar />
+    <br>
     <div class="carts">
-      <h1>Ini bakal jadi halaman carts</h1>
       <CartForm 
         v-for="cart in fetchCarts"
         :key="cart.id"

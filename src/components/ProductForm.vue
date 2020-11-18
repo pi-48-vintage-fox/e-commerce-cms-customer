@@ -12,16 +12,21 @@
           <!-- <p class="card-text">{{ product.status }}</p> -->
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
         </div>
-      <button type="button" class="btn btn-info">Add to Cart</button>
+      <button type="button" class="btn btn-info" @click="addCarts({productId: product.id, quantity: 1})">Add to Cart</button>
       </div>
     </div>
 </template>
 
 <script>
 export default {
-  name: "product-form",
-  props: ["product"],
-};
+  name: 'product-form',
+  props: ['product'],
+  methods: {
+    addCarts(payload){
+      this.$store.dispatch('addCarts', payload)
+    }
+  }
+}
 </script>
 
 <style>

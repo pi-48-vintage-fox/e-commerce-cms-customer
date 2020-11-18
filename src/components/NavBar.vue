@@ -1,8 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-info">
-    <router-link class="navbar-brand text-white" to="/home"
-      >TokoBimo</router-link
-    >
+    <router-link class="navbar-brand text-white" to="/">TokoBimo</router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -29,6 +27,20 @@
         </li>
       </ul>
     </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            href="#"
+            @click.prevent="fetchCarts"
+            tabindex="-1"
+            aria-disabled="true"
+            >Carts</a
+          >
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>
 
@@ -40,6 +52,9 @@ export default {
       localStorage.clear();
       this.$router.push("/login");
     },
+    fetchCarts(){
+      this.$router.push('/carts')
+    }
   },
 };
 </script>

@@ -14,22 +14,22 @@
 
 <script>
 // @ is an alias to /src
-import NavBar from "@/components/NavBar.vue";
-import ProductForm from "@/components/ProductForm.vue";
+import NavBar from '@/components/NavBar.vue'
+import ProductForm from '@/components/ProductForm.vue'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     NavBar,
-    ProductForm,
+    ProductForm
   },
   computed: {
-    fetchProducts() {
-      return this.$store.state.products;
-    },
+    fetchProducts () {
+      return this.$store.state.products
+    }
   },
-  created() {
-    this.$store.dispatch("fetchProducts");
-  },
-};
+  created () {
+    this.$store.dispatch('fetchProducts')
+  }
+}
 </script>

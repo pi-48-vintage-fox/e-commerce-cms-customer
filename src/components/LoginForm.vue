@@ -40,14 +40,14 @@ export default {
     }
   },
   methods: {
-    login() {
-      console.log("login");
-      console.log({ email: this.email, password: this.password });
-      this.$store.dispatch("login", {
+    login () {
+      console.log('login')
+      console.log({ email: this.email, password: this.password })
+      this.$store.dispatch('login', {
         email: this.email,
-        password: this.password,
-      });
-    },
+        password: this.password
+      })
+    }
   }
 }
 </script>

@@ -5,7 +5,12 @@
     <p class="text-primary" style="font-weight: 500">
       {{ toCurrencyFormat(totalPrice) }}
     </p>
-    <button class="btn btn-info btn-block" @click="checkout">Checkout</button>
+    <button
+      class="btn btn-info btn-block"
+      @click="checkout({ CartId: cart.id })"
+    >
+      Checkout
+    </button>
   </div>
   <!-- </div> -->
 </template>
@@ -18,13 +23,16 @@ export default {
     totalPrice() {
       return this.$store.state.totalPrice
     },
+    cart() {
+      return this.$store.state.cart
+    },
   },
   // created() {
   //   this.$store.dispatch('getTotalPrice')
   // },
   methods: {
-    checkout() {
-      this.$store.dispatch('checkout')
+    checkout(payload) {
+      this.$store.dispatch('checkout', payload)
     },
     toCurrencyFormat(amount) {
       return (

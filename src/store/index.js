@@ -59,7 +59,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    checkout({ commit, state }) {
+    checkout({ commit, dispatch, state }, payload) {
       // kurangi stock
 
       let orders = state.cart.CartProducts.map(cartitem => {
@@ -73,22 +73,26 @@ export default new Vuex.Store({
       console.log(orders, '<<<<< orders')
 
       // set status cart jadi paid
-      // axios({
-      //   method: 'PATCH',
-      //   url: '/',
-      //   data: {
-      //     status: 'paid',
-      //   },
-      //   headers: {
-      //     access_token: localStorage.getItem('access_token'),
-      //   },
-      // })
-      //   .then(({ data }) => {
-      //     console.log(data, '<<< update status cart')
-      //   })
-      //   .catch(err => {
-      //     console.log(err.response.data, '<<<<< error updating cart status')
-      //   })
+      axios({
+        method: 'PATCH',
+        url: '/carts',
+        data: {
+          status: 'paid',
+          CartId: payload.CartId,
+        },
+        headers: {
+          access_token: localStorage.getItem('access_token'),
+        },
+      })
+        .then(({ data }) => {
+          console.log(data, '<<< update status cart')
+          commit('SET_CART', '')
+          dispatch('fetchCart')
+          router.push('/')
+        })
+        .catch(err => {
+          console.log(err.response.data, '<<<<< error updating cart status')
+        })
     },
     getTotalPrice({ commit, state }) {
       let orders
@@ -177,12 +181,16 @@ export default new Vuex.Store({
           commit('SET_CART', '')
           commit('SET_TOTAL_PRICE', '')
           commit('SET_IS_LOGGED_IN', false)
+          router.push('/')
         })
       } else {
         console.log('User signed out.')
         localStorage.clear()
         commit('SET_USER', '')
+        commit('SET_CART', '')
+        commit('SET_TOTAL_PRICE', '')
         commit('SET_IS_LOGGED_IN', false)
+        router.push('/')
       }
     },
     onSignIn({ commit }, googleUser) {
@@ -292,6 +300,10 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log(err.response.data, '<<< error fetching user')
+          if (err.response.data.status === 401) {
+            localStorage.removeItem('access_token')
+            router.push('/')
+          }
         })
     },
     fetchBanners({ commit }) {

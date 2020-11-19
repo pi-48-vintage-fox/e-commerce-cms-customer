@@ -42,7 +42,11 @@ export default {
       )
     },
     addProductToCart(payload) {
-      this.$store.dispatch('addProductToCart', payload)
+      if (!localStorage.getItem('access_token')) {
+        this.$router.push('/login')
+      } else {
+        this.$store.dispatch('addProductToCart', payload)
+      }
     },
     isInCart(ProductId) {
       let result = false

@@ -64,7 +64,7 @@
           I want to
           <a
             id="link-register"
-            @click="this.$router.push('/register')"
+            @click="$router.push('/register')"
             href="javascript:void(0)"
           >
             create an account

@@ -353,6 +353,27 @@ export default new Vuex.Store({
           commit('SET_IS_FETCHING_PRODUCTS', false)
         })
     },
+
+    deleteCartItem({ dispatch }, payload) {
+      console.log('delete cart item')
+
+      axios({
+        method: 'DELETE',
+        url: '/cartitems',
+        data: payload,
+        headers: {
+          access_token: localStorage.getItem('access_token'),
+        },
+      })
+        .then(({ data }) => {
+          console.log(data, '<<< products')
+          dispatch('fetchCart')
+        })
+        .catch(err => {
+          console.log(err.response.data, '<<< error delete cartitem')
+          dispatch('fetchCart')
+        })
+    },
   },
 
   modules: {},

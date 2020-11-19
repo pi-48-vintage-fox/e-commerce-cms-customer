@@ -17,7 +17,16 @@
             </p>
             <div class="d-flex flex-row justify-content-end">
               <div class="d-flex flex-row">
-                <i class="material-icons mr-3 btn-delete">delete_outline</i>
+                <i
+                  style="cursor:pointer"
+                  class="material-icons mr-3 btn-delete"
+                  @click="
+                    deleteCartItem({
+                      CartProductId: cartitem.id,
+                    })
+                  "
+                  >delete_outline</i
+                >
                 <i
                   v-if="cartitem.quantity <= 1"
                   class="material-icons mr-2 md-dark md-inactive"
@@ -82,6 +91,10 @@ export default {
     updateQuantity(payload) {
       console.log(payload, '<<<< payload update qty')
       this.$store.dispatch('updateQuantity', payload)
+    },
+    deleteCartItem(payload) {
+      console.log(payload, '<<<< payload delete cart item')
+      this.$store.dispatch('deleteCartItem', payload)
     },
   },
 }

@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1>Category Card</h1>
+    <h4>{{ category.name }}</h4>
   </div>
 </template>
 
 <script>
 export default {
   name: 'ProductCategoryCard',
+  props: ['category'],
 }
 </script>
 

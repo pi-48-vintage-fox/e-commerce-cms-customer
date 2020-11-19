@@ -18,6 +18,14 @@ export default {
     ProductList,
     ProductCategories,
   },
-  created() {},
+  created() {
+    // this.$store.dispatch('fetchProducts')
+    // this.$store.dispatch('fetchProductCategories')
+    // this.$store.dispatch('fetchBanners')
+    if (localStorage.getItem('access_token')) {
+      this.$store.dispatch('fetchUserDetails')
+      this.$store.dispatch('fetchCart')
+    }
+  },
 }
 </script>

@@ -1,7 +1,14 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Categories</h1>
-    <ProductCategoryCard />
+    <div class="row">
+      <ProductCategoryCard
+        v-for="category in productCategories"
+        :key="category.id"
+        :category="category"
+        class="col-3"
+      />
+    </div>
   </div>
 </template>
 
@@ -11,6 +18,11 @@ export default {
   name: 'ProductCategories',
   components: {
     ProductCategoryCard,
+  },
+  computed: {
+    productCategories() {
+      return this.$store.state.productCategories
+    },
   },
 }
 </script>

@@ -171,6 +171,8 @@ export default new Vuex.Store({
           console.log('User signed out.')
           localStorage.clear()
           commit('SET_USER', '')
+          commit('SET_CART', '')
+          commit('SET_TOTAL_PRICE', '')
           commit('SET_IS_LOGGED_IN', false)
         })
       } else {

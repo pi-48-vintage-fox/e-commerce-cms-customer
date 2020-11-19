@@ -1,17 +1,22 @@
 <template>
   <div class="container d-flex flex-row justify-content-center">
     <div class="row justify-content-center">
-      <div class="cartitem-list col-8 justify-content-center mr-3">
-        <CartItemList
-          v-for="cartitem in cart.CartProducts"
-          :key="cartitem.id"
-          :cartitem="cartitem"
-          :cart="cart"
-          class="col-12 mb-3"
-        />
+      <div v-if="cart.CartProducts.length === 0">
+        <h1>Your cart is empty</h1>
       </div>
-      <div class="col-3">
-        <CartSummary />
+      <div v-else class="row">
+        <div class="cartitem-list col-8 justify-content-center mr-3">
+          <CartItemList
+            v-for="cartitem in cart.CartProducts"
+            :key="cartitem.id"
+            :cartitem="cartitem"
+            :cart="cart"
+            class="col-12 mb-3"
+          />
+        </div>
+        <div class="col-3">
+          <CartSummary />
+        </div>
       </div>
     </div>
   </div>

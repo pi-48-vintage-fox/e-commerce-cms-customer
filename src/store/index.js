@@ -142,6 +142,7 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log(err.response.data, '>>>> error update quantity')
+          dispatch('fetchCart')
         })
     },
     addProductToCart({ dispatch }, payload) {

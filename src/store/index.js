@@ -131,6 +131,7 @@ export default new Vuex.Store({
       axios
         .post('/checkout', { cartItems: payload })
         .then(response => {
+          dispatch('fetchProducts')
           dispatch('fetchUserCart')
         })
         .catch(err => {

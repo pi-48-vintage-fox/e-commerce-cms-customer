@@ -1,12 +1,10 @@
 <template>
   <!-- <div class="summary card"> -->
   <div class="summary">
-    <!-- <div class="d-flex flex-row"> -->
     <p>Total Harga :</p>
     <p class="text-primary" style="font-weight: 500">
       {{ toCurrencyFormat(totalPrice) }}
     </p>
-    <!-- </div> -->
     <button class="btn btn-info btn-block" @click="checkout">Checkout</button>
   </div>
   <!-- </div> -->

@@ -12,72 +12,72 @@
     </div>
     <div id="auth-form">
       <form id="registerForm" @submit.prevent="submitRegisterForm">
-        <div class="form-group">
-          <label for="user">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            v-model="email"
-            placeholder="Insert your email"
-            required
-          />
-          <div
-            v-if="errors.email.length > 0"
-            class="notification notification-error"
-          >
-            <ul>
-              <li v-for="(error, i) in errors.email" :key="i">{{ error }}</li>
-            </ul>
-          </div>
+        <!-- <div class="form-group"> -->
+        <label for="user">Email</label>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          v-model="email"
+          placeholder="Insert your email"
+          required
+        />
+        <div
+          v-if="errors.email.length > 0"
+          class="notification notification-error"
+        >
+          <ul>
+            <li v-for="(error, i) in errors.email" :key="i">{{ error }}</li>
+          </ul>
         </div>
+        <!-- </div> -->
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            v-model="password"
-            placeholder="Insert your password"
-            required
-          />
-          <div
-            v-if="errors.password.length > 0"
-            class="notification notification-error"
-          >
-            <ul>
-              <li v-for="(error, i) in errors.password" :key="i">
-                {{ error }}
-              </li>
-            </ul>
-          </div>
+        <!-- <div class="form-group"> -->
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+          placeholder="Insert your password"
+          required
+        />
+        <div
+          v-if="errors.password.length > 0"
+          class="notification notification-error"
+        >
+          <ul>
+            <li v-for="(error, i) in errors.password" :key="i">
+              {{ error }}
+            </li>
+          </ul>
         </div>
+        <!-- </div> -->
 
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            v-model="confirmPassword"
-            placeholder="Re-type your password"
-            required
-          />
-          <div
-            v-if="errors.confirmPassword.length > 0"
-            class="notification notification-error"
-          >
-            <ul>
-              <li v-for="(error, i) in errors.confirmPassword" :key="i">
-                {{ error }}
-              </li>
-            </ul>
-          </div>
+        <!-- <div class="form-group"> -->
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          v-model="confirmPassword"
+          placeholder="Re-type your password"
+          required
+        />
+        <div
+          v-if="errors.confirmPassword.length > 0"
+          class="notification notification-error"
+        >
+          <ul>
+            <li v-for="(error, i) in errors.confirmPassword" :key="i">
+              {{ error }}
+            </li>
+          </ul>
         </div>
+        <!-- </div> -->
 
         <div class="actions">
-          <button class="button button-secondary">
+          <button class="btn btn-primary btn-block mt-3 mb-2">
             Create Account
           </button>
         </div>

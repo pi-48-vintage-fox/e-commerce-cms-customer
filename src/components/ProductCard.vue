@@ -8,6 +8,7 @@
           {{ toCurrencyFormat(product.price) }}
         </p>
         <button
+          v-if="!isInCart(product.id)"
           class="btn btn-primary"
           @click="
             addProductToCart({
@@ -18,6 +19,9 @@
           "
         >
           Add to cart
+        </button>
+        <button v-else class="btn btn-secondary" disabled>
+          Added to cart
         </button>
       </div>
     </div>
@@ -39,6 +43,18 @@ export default {
     },
     addProductToCart(payload) {
       this.$store.dispatch('addProductToCart', payload)
+    },
+    isInCart(ProductId) {
+      let result = false
+      if (this.cart.CartProducts) {
+        this.cart.CartProducts.map(cartitem => {
+          if (cartitem.ProductId == ProductId) {
+            result = true
+          }
+        })
+      }
+
+      return result
     },
   },
   computed: {

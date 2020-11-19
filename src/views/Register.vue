@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h1>Register</h1>
-    <section id="authentication">
+    <section
+      id="authentication"
+      class="row justify-content-center align-items-center"
+    >
       <div id="container-auth">
         <FormRegister></FormRegister>
       </div>

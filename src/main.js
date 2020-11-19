@@ -6,6 +6,7 @@ import VueCarousel from 'vue-carousel'
 import VTooltip from 'v-tooltip'
 
 import './css/tooltips.css'
+import './css/auth.css'
 import './css/style.css'
 
 Vue.use(VTooltip)

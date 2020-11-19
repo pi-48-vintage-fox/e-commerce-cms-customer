@@ -12,17 +12,17 @@
     </div>
     <div id="auth-form">
       <form id="loginForm" @submit.prevent="submitLoginForm">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            v-model="email"
-            placeholder="Insert your email"
-            autofocus
-          />
-          <!-- <div
+        <!-- <div class="form-group"> -->
+        <label for="email">Email</label>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          v-model="email"
+          placeholder="Insert your email"
+          autofocus
+        />
+        <!-- <div
           v-if="errors.user.length > 0"
           class="notification notification-error"
         >
@@ -32,18 +32,18 @@
             </li>
           </ul>
         </div> -->
-        </div>
+        <!-- </div> -->
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            v-model="password"
-            placeholder="Insert your password"
-          />
-          <!-- <div
+        <!-- <div class="form-group"> -->
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+          placeholder="Insert your password"
+        />
+        <!-- <div
           v-if="errors.password.length > 0"
           class="notification notification-error"
         >
@@ -53,13 +53,13 @@
             </li>
           </ul>
         </div> -->
-        </div>
+        <!-- </div> -->
 
-        <div class="actions">
-          <button class="button button-secondary">
-            Log In
-          </button>
-        </div>
+        <!-- <div class="actions"> -->
+        <button class="btn btn-primary mt-3 mb-2">
+          Log In
+        </button>
+        <!-- </div> -->
         <p>
           I want to
           <a

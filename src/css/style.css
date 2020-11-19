@@ -1,5 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@700&family=Montserrat:wght@700;800;900&family=Oswald:wght@500;600;700&family=Rubik:wght@400;500;600;700;900&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
+:root {
+  --bg-color: rgb(250, 250, 250);
+  --bg-dark: #223346;
+  --txt-color: #223346;
+  --txt-dark: #ebeef1;
+  --primary: #107a3c;
+  --accent-dark: #e94326;
+  --accent: #ca2f13;
+  --accent2: #0091da;
+  --accent3: #107a3c;
+  --placeholder-color: #aaa9a9;
+  --blue-lighter: #dee8ff;
+  --blue-light: #4f7add;
+  --blue: #305dc5;
+  --green: #28ac4f;
+  --red: rgb(226, 55, 55);
+  --grey-lightest: rgb(244, 244, 244);
+  --grey-lighter: rgb(232, 232, 232);
+  --grey-light: rgb(212, 212, 212);
+  --grey: rgb(164, 180, 185);
+  --grey-dark: rgb(148, 157, 160);
+  --grey-darker: rgb(101, 108, 110);
+  --grey-darkest: rgb(45, 48, 49);
+
+  --shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  --shadow2: 0 1px 10px 0 rgba(0, 0, 0, 0.5);
+
+  --left-nav-width: 250px;
+
+  font-size: 16px;
+}
+
 body {
   background-color: rgb(235, 245, 234);
 }

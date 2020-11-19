@@ -55,7 +55,7 @@ export default {
   created() {
     this.$store.dispatch('fetchProducts')
     this.$store.dispatch('fetchBanners')
-    if (this.isLoggedIn) {
+    if (localStorage.getItem('access_token')) {
       this.$store.dispatch('fetchUserDetails')
       this.$store.dispatch('fetchCart')
     }

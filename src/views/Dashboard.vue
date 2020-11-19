@@ -22,10 +22,13 @@
         <div class="wishlist-button" v-if="logged">
           <router-link to="/wishlist"><button class="wishlist uk-button"><span uk-icon="icon: heart"></span><span> Wish</span></button></router-link>
         </div>
+        <div class="history-button" v-if="logged">
+          <router-link to="/history"><button class="history uk-button"><span uk-icon="icon: history"></span><span> History</span></button></router-link>
+        </div>
       </div>
       <Profile />
-      <AllProducts v-if="!params && $route.name !== 'Wishlist' && $route.name !== 'Cart'" />
-      <router-view v-else-if="params || $route.name === 'Wishlist' || $route.name === 'Cart'"/>
+      <AllProducts v-if="!params && $route.name !== 'Wishlist' && $route.name !== 'Cart' && $route.name !== 'History'" />
+      <router-view v-else-if="params || $route.name === 'Wishlist' || $route.name === 'Cart' || $route.name === 'History'"/>
     </div>
   </div>
 </template>
@@ -79,13 +82,23 @@ export default {
 }
 
 .cart-button {
-  margin-top: 10rem;
+  margin-top: 8rem;
   font-family: 'Alfa Slab One', cursive;
 }
 
 .content {
   margin-top: 12px;
-  margin-left: 10px;
+  margin-left: 200px;
+}
+
+.history {
+  padding-left: 17px !important;
+  padding-right: 17px;
+}
+
+.history-button {
+  margin-top: 25px;
+  font-family: 'Alfa Slab One', cursive;
 }
 
 .uk-button {

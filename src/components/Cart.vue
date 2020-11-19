@@ -1,5 +1,10 @@
 <template>
   <div id="cart">
+    <div uk-alert v-if="error">
+      <a class="uk-alert-close" uk-close></a>
+      <h3>Notice</h3>
+      <p>{{ error }}</p>
+    </div>
     <table class="uk-table uk-table-divider uk-table-middle">
       <thead>
         <tr>
@@ -34,8 +39,14 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'Cart',
+  data () {
+    return {
+      error: ''
+    }
+  },
   methods: {
     toRupiahs (rp) {
       let rupiah = ''
@@ -46,19 +57,62 @@ export default {
     amountDecrement (amount, product) {
       if (amount > 1) {
         this.$store.dispatch('decrementAmount', product.id)
+          .then(result => {
+            this.$store.dispatch('getCart')
+          })
+          .catch(err => {
+            console.log(err.response)
+          })
       } else {
-        this.$store.dispatch('removeFromCart', product.id)
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this! But you can pick it again at dashboard.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: 'black',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, remove!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$store.dispatch('removeFromCart', product.id)
+              .then(result => {
+                this.$store.dispatch('getCart')
+              })
+              .catch(err => {
+                console.log(err.response)
+              })
+            Swal.fire(
+              'Removed!',
+              'An item has been removed from cart.',
+              'success'
+            )
+          }
+        })
       }
     },
     amountIncrement (amount, product) {
       if (amount === product.stock) {
-        throw new Error("You cannot buy item for more than it's available stock")
+        this.error = "You cannot buy item for more than it's available stock"
+        setTimeout(() => { this.error = '' }, 3000)
       } else {
         this.$store.dispatch('incrementAmount', product.id)
+          .then(result => {
+            this.$store.dispatch('getCart')
+          })
+          .catch(err => {
+            console.log(err)
+          })
       }
     },
     checkout () {
       this.$store.dispatch('checkout')
+        .then(result => {
+          this.$store.dispatch('getCart')
+          this.$store.dispatch('getProducts')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
     }
   },
   computed: {
@@ -78,7 +132,7 @@ export default {
 
 <style scoped>
 #cart {
-  margin-left: 20px;
+  margin-left: 220px;
   width: 100%;
 }
 

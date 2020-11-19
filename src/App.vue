@@ -6,20 +6,47 @@
       <a href="#" v-else-if="logged" class="nav-links logout" @click.prevent="logout">Logout</a>
     </div>
     <router-view/>
-    <footer class="footer uk-card uk-card-default uk-card-body uk-padding-small uk-background-secondary uk-light">
-      <p class="uk-text-center">© 2020 Musa Bagja. All Rights Reserved.</p>
-    </footer>
   </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'App',
   methods: {
     logout () {
-      localStorage.clear()
-      this.$store.commit('LOGIN', false)
-      this.$store.commit('RETURN_WISHLIST', '')
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, logout!'
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'success',
+              title: 'Logout successfully'
+            })
+            localStorage.clear()
+            this.$store.commit('LOGIN', false)
+            this.$store.commit('RETURN_WISHLIST', '')
+          }
+        })
     }
   },
   computed: {

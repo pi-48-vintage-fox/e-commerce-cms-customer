@@ -6,9 +6,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    banners: '',
     categories: '',
     cart: [],
     logged: false,
+    history: '',
     products: '',
     wishlist: ''
   },
@@ -16,11 +18,17 @@ export default new Vuex.Store({
     LOGIN (state, boolean) {
       state.logged = boolean
     },
+    RETURN_BANNERS (state, payload) {
+      state.banners = payload
+    },
     RETURN_CATEGORIES (state, payload) {
       state.categories = payload
     },
     RETURN_CART (state, payload) {
       state.cart = payload
+    },
+    RETURN_HISTORY (state, payload) {
+      state.history = payload
     },
     RETURN_PRODUCTS (state, payload) {
       state.products = payload
@@ -32,20 +40,13 @@ export default new Vuex.Store({
   actions: {
     checkout (context) {
       const token = localStorage.getItem('token')
-      axios({
+      return axios({
         method: 'PATCH',
         url: '/checkout',
         headers: {
           token
         }
       })
-        .then(result => {
-          context.dispatch('getCart')
-          context.dispatch('getProduct')
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     addToWishlist (context, productId) {
       const token = localStorage.getItem('token')
@@ -88,7 +89,7 @@ export default new Vuex.Store({
     },
     decrementAmount (context, productId) {
       const token = localStorage.getItem('token')
-      axios({
+      return axios({
         method: 'PATCH',
         url: '/cart/' + productId,
         headers: {
@@ -98,8 +99,14 @@ export default new Vuex.Store({
           how: false
         }
       })
+    },
+    getBanners (context) {
+      axios({
+        method: 'GET',
+        url: '/banners/cust'
+      })
         .then(result => {
-          context.dispatch('getCart')
+          context.commit('RETURN_BANNERS', result.data)
         })
         .catch(err => {
           console.log(err)
@@ -128,6 +135,22 @@ export default new Vuex.Store({
       })
         .then(result => {
           context.commit('RETURN_CATEGORIES', result.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getHistory (context) {
+      const token = localStorage.getItem('token')
+      axios({
+        method: 'GET',
+        url: '/history',
+        headers: {
+          token
+        }
+      })
+        .then(result => {
+          context.commit('RETURN_HISTORY', result.data)
         })
         .catch(err => {
           console.log(err)
@@ -163,7 +186,7 @@ export default new Vuex.Store({
     },
     incrementAmount (context, productId) {
       const token = localStorage.getItem('token')
-      axios({
+      return axios({
         method: 'PATCH',
         url: '/cart/' + productId,
         headers: {
@@ -173,12 +196,6 @@ export default new Vuex.Store({
           how: true
         }
       })
-        .then(result => {
-          context.dispatch('getCart')
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     login (context, payload) {
       const { email, password } = payload
@@ -208,19 +225,13 @@ export default new Vuex.Store({
     },
     removeFromCart (context, productId) {
       const token = localStorage.getItem('token')
-      axios({
+      return axios({
         method: 'DELETE',
         url: '/cart/' + productId,
         headers: {
           token
         }
       })
-        .then(result => {
-          context.dispatch('getCart')
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     removeFromWishlist (context, productId) {
       const token = localStorage.getItem('token')

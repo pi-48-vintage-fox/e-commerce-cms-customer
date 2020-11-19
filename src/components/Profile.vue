@@ -9,7 +9,10 @@ export default {
   name: 'Profile',
   computed: {
     email () {
-      return localStorage.getItem('email')
+      if (this.$store.state.logged) {
+        return localStorage.getItem('email')
+      }
+      return ''
     }
   }
 }
@@ -19,6 +22,10 @@ export default {
 .profile p {
   font-family: 'Alfa Slab One', cursive;
   font-size: 15px;
-  margin-left: 2px;
+  margin-left: 5px;
+}
+
+.profile {
+  position: absolute;
 }
 </style>

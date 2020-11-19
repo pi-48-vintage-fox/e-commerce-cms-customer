@@ -21,26 +21,58 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'Product',
   methods: {
     addToCart () {
       const found = this.cart.find(element => element.product_id === this.product.id)
-      if (found) {
-        if (found.amount === this.product.stock) {
-          throw new Error("You cannot buy item for more than it's available stock")
-        } else {
-          this.$store.dispatch('incrementAmount', this.product.id)
-        }
+      if (!this.$store.state.logged) {
+        Swal.fire('Login required')
+        this.$router.push('/landing')
       } else {
-        this.$store.dispatch('addToCart', this.product.id)
+        if (found) {
+          if (found.amount === this.product.stock) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: "You cannot buy item for more than it's available stock."
+            })
+          } else if (this.product.stock === 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Out of stock.'
+            })
+          } else {
+            this.$store.dispatch('incrementAmount', this.product.id)
+              .then(result => {
+                this.$store.dispatch('getCart')
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          }
+        } else {
+          this.$store.dispatch('addToCart', this.product.id)
+        }
       }
     },
     like () {
-      this.$store.dispatch('addToWishlist', this.product.id)
+      if (!this.$store.state.logged) {
+        Swal.fire('Login required')
+        this.$router.push('landing')
+      } else {
+        this.$store.dispatch('addToWishlist', this.product.id)
+      }
     },
     unlike () {
-      this.$store.dispatch('removeFromWishlist', this.product.id)
+      if (!this.$store.state.logged) {
+        Swal.fire('Login required')
+        this.$router.push('landing')
+      } else {
+        this.$store.dispatch('removeFromWishlist', this.product.id)
+      }
     }
   },
   props: ['product'],

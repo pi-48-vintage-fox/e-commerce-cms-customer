@@ -24,7 +24,6 @@ export default {
   name: "FormUpdate",
   computed: {
     fetchProductById () {
-      console.log(this.$store.state.ProductById);
       this.qty = this.$store.state.ProductById.quantity
       return this.$store.state.ProductById
       
@@ -36,12 +35,41 @@ export default {
         qty: this.qty,
         ProductId: id
       }
-      this.$store.dispatch('updateQty', dataProduct)
-       .then(({data}) => {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Save`,
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          return this.$store.dispatch('updateQty', dataProduct)
+          
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+          this.$router.push('/cart')
+        }
+      })
+      .then(({data}) => {
+        Swal.fire('Saved!', '', 'success')
         this.$router.push('/cart')
       })
       .catch(err => {
-        console.log(err.response);
+        console.log(err.response.data);
+        if (err.response.data.name == 'SequelizeValidationError') {
+            Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data.errors[0].message
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data.message
+          })
+        }
       })
     }
   },

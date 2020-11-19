@@ -37,6 +37,22 @@ export default {
         this.$store.dispatch('addToCart', idProduct)
         this.fetchCart ()
         this.$router.push('/cart')
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-center',
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Item success add to cart'
+        })
       }
     },
      fetchCart () {

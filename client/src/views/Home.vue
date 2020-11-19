@@ -15,12 +15,27 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-        <div
-          class="carousel-item active"
-          v-for="banner in getBanner"
-          :key="banner.id"
-        >
-          <img :src="banner.image_url" class="d-block w-100" alt="..." />
+        <div class="carousel-item active">
+          <img
+            src="https://ecs7-p.tokopedia.net/img/cache/1208/NsjrJu/2020/9/24/d7b88fce-dd8a-4b15-b750-7661834d9604.jpg?b=KHCSLZEY0%24FPne-54%7Dot-l.webp"
+            class="d-block w-100"
+            alt="..."
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="https://ecs7-p.tokopedia.net/img/cache/1208/NsjrJu/2020/11/17/b56f9edc-5aa0-47e9-9f10-4eb0f715a5a0.jpg.webp"
+            class="d-block w-100"
+            alt="..."
+          />
+        </div>
+
+        <div class="carousel-item">
+          <img
+            src="https://ecs7-p.tokopedia.net/img/cache/1208/NsjrJu/2020/10/23/6e902307-0f3f-447f-895b-3e4714815b51.jpg.webp"
+            class="d-block w-100"
+            alt="..."
+          />
         </div>
       </div>
       <a
@@ -56,31 +71,31 @@
 
 <script>
 // @ is an alias to /src
-import Content from '../components/Content.vue'
+import Content from "../components/Content.vue";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    Content
+    Content,
   },
   computed: {
-    getAllProduct () {
-      return this.$store.state.allProduct
+    getAllProduct() {
+      return this.$store.state.allProduct;
     },
-    getBanner () {
-      return this.$store.state.banner
-    }
+    getBanner() {
+      return this.$store.state.banner;
+    },
   },
   methods: {
-    fetchProduct () {
-      this.$store.dispatch('fetchProduct')
+    fetchProduct() {
+      this.$store.dispatch("fetchProduct");
     },
-    fetchBanner () {
-      this.$store.dispatch('fetchBanner')
-    }
+    fetchBanner() {
+      this.$store.dispatch("fetchBanner");
+    },
   },
-  created () {
-    this.fetchProduct()
-    this.fetchBanner()
-  }
-}
+  created() {
+    this.fetchProduct();
+    this.fetchBanner();
+  },
+};
 </script>

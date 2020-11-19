@@ -36,10 +36,9 @@
               >Check me out</label
             >
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-          ||
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form><br>
         <button @click="register" class="btn btn-warning">Register</button>
-        </form>
       </div>
     </div>
   </div>
@@ -67,9 +66,20 @@ export default {
 
           this.$store.commit('SET_EMAILISLOGIN', this.email)
           this.$router.push('/')
+          Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Login Successfuly',
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
         .catch(err => {
-          console.log(err.response)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data
+            })
         })
     },
     register () {
@@ -79,10 +89,25 @@ export default {
       }
       this.$store.dispatch('register', dataUser)
         .then(({ data }) => {
-          localStorage.setItem()
+          Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Register successfuly please login',
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
         .catch(err => {
-          console.log(err.response)
+          console.log(err.response.data.original.detail);
+          if (err.response.data.name === 'SequelizeUniqueConstraintError') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.response.data.original.detail
+              })
+          } else {
+            console.log(err.response.data);
+          }
         })
     }
   }

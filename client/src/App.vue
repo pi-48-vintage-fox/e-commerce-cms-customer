@@ -43,6 +43,13 @@ export default {
       this.$router.push('/cart')
     },
     logout () {
+      Swal.fire({
+        position: 'top-center',
+        icon: 'success',
+        title: 'Logout successfuly',
+        showConfirmButton: false,
+        timer: 1500
+      })
       localStorage.clear()
       this.$store.commit('SET_EMAILISLOGIN', '')
     },

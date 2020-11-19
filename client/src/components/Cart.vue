@@ -17,7 +17,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
               <p>Qty : {{ product.Cart.quantity }}</p>
-              <p>Price : {{ product.price }}</p>
+              <p>Price : Rp {{ product.price * product.Cart.quantity }},- </p>
               <a href="#" @click.prevent="deleteCart(product.id)">Delete</a>
               ||
               <a href="#" @click.prevent="updateCart(product.id)">Update</a>
@@ -53,14 +53,37 @@ export default {
       this.$router.push('/formupdate')
     },
     deleteCart(id) {
-      this.$store
-        .dispatch("deleteCart", id)
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          console.log(result);
+          if (result.isConfirmed) {
+            return this.$store.dispatch("deleteCart", id)    
+          } else {
+              Swal.fire(
+              'Deleted!',
+              'Delete Canceled.',
+              'error'
+            )
+          }
+        })
         .then(({ data }) => {
           this.fetchCart();
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
         })
         .catch((err) => {
           console.log(err.response);
-        });
+        })
     },
   },
   created() {

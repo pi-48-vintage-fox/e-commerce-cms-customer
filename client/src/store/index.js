@@ -102,6 +102,49 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log(err)
+          context.commit('SET_CARTS', [])
+        })
+    },
+
+    changeQty (context, payload) {
+      axios({
+        method: 'PATCH',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          ProductId: payload.ProductId,
+          quantity: payload.quantity
+        }
+      })
+        .then(() => {
+          context.dispatch('showCart')
+          console.log('Successfully changed quantity!')
+        })
+        .catch(err => {
+          context.dispatch('showCart')
+          console.log(err)
+        })
+    },
+
+    removeCart (context, payload) {
+      axios({
+        method: 'DELETE',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          ProductId: payload.ProductId
+        }
+      })
+        .then(() => {
+          context.dispatch('showCart')
+          console.log('Successfully removed item from cart!')
+        })
+        .catch(() => {
+          context.dispatch('showCart')
         })
     }
   },

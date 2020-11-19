@@ -17,7 +17,7 @@
       </li>
       <li class="nav-item" v-if="access_token">
         <a class="nav-link" href="#" @click.prevent="toCart"
-          >Cart</a
+          >Cart<span v-if="$store.state.carts.length >= 1" class="badge badge-danger">{{ $store.state.carts.length }}</span></a
         >
       </li>
     </ul>

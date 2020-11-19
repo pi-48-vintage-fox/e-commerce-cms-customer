@@ -12,10 +12,8 @@
 	 <div class="container">
 
 		 <div class="col-md-9 cart-items" >
-			 <!-- <h2>My Shopping Bag ({{$store.state.cart.showCart.length}})</h2> -->
-			 <!-- <h2>My Shopping Bag ({{cartUpdate}})</h2> -->
+			 <h2>My Shopping Bag ({{$store.state.cart.showCart.length}})</h2>
 			 <div class="cart-header" >
-				 <div class="close1"> </div>
 				 <div class="cart-sec" v-for="(cart,i) in $store.state.cart.showCart" :key="cart.id">
 						<div class="cart-item cyc">
 							 <img :src="cart.image_url"/>
@@ -23,19 +21,18 @@
 					   <div class="cart-item-info">
 							 <h3>{{cart.name}}</h3>
 							 <h4><span>Rp.</span>{{cart.price}}</h4>
-							 <p class="qty">Qty ::{{cart.quantity}}</p>
+							 <p class="qty">Qty ::</p>
 							 <form @submit.prevent="editCart(cart.id,i)">
 							 	<input min="1" type="number" id="quantity" name="quantity" class="form-control input-small" v-model="cart.Cart.quantity">
-							 	<!-- <input type="number" v-model="cartQuantity[i]"> -->
-								 <!-- <input type="number" v-model="cartUpdate.id"> -->
 								<button type="submit">Update</button>
 							 </form>
+							 
 					   </div>
 					   <div class="clearfix"></div>
 						<div class="delivery">
+							<button class="btn btn-sm btn-danger" @click="del(cart.id)">Cancel Order</button>
 							 <p>Service Charges:: free</p>
-							 <span>Delivered in 2-state.cart.showCart is undefined
-    render Cart.vue:173 bussiness days</span>
+							 <span>Delivered in 2 bussiness days</span>
 							 <div class="clearfix"></div>
 				        </div>
 				  </div>
@@ -97,8 +94,8 @@ export default {
 	},
 	methods:{
 		editCart (id,i){
-			console.log(this.cartQuantity[i],id)
-			this.$store.dispatch('editCart', {quantity:this.quantity[i],id})
+			console.log(this.cartQuantity[i])
+			this.$store.dispatch('editCart', {quantity:this.cartQuantity[i],id})
 				.then((data) => {
 					this.$store.dispatch('showCart')
 					})
@@ -106,6 +103,16 @@ export default {
 						console.log(err)
 						this.errorMessage = err
 					})
+		},
+		del(id){
+			console.log(id)
+			this.$store.dispatch('delCart',{ProductId:id})
+			 .then(()=>{
+				 this.$store.dispatch('showCart')
+			 })
+			 .catch(err=>{
+				 console.log(err)
+			 })
 		}
 	},
 	computed: {
@@ -113,10 +120,7 @@ export default {
 			// console.log('a')
 			for (let i = 0 ; i <= this.$store.state.cart.showCart.length-1; i ++) {
 				this.quantity[i] = this.$store.state.cart.showCart[i].Cart.quantity
-				console.log(this.quantity[i],'....')
 			}
-			console.log(this.$store.state.cart.showCart[0].Cart.quantity)
-			console.log(this.quantity,'quantitnya')
 			return this.quantity
 		}
 	},

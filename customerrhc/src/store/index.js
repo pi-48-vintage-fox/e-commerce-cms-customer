@@ -112,6 +112,7 @@ export default new Vuex.Store({
     },
     editCart (context,payload){
       const accessToken = localStorage.getItem('access_token')
+      console.log(payload.quantity,'client')
       axios({
         method: "PATCH",
         url:`/products/cart/${payload.id}`,
@@ -126,6 +127,21 @@ export default new Vuex.Store({
        .catch(err=>{
          console.log(err)
        })
+    },
+    delCart (context,payload){
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method:"DELETE",
+        url:`/products/cart/${payload.ProductId}`,
+        headers: {access_token: accessToken}
+      })
+      .then(({data})=>{
+        context.dispatch('showCart')
+     })
+     .catch(err=>{
+       console.log(err)
+     })
+      
     }
   },
   modules: {

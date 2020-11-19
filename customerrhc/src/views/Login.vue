@@ -64,34 +64,13 @@
       </div>
     </div>
     <!--coffess-->
-    <div class="coffees">
-      <h3>OUR PRODUCTS</h3>
-      <div class="coffees-grids">
-        <ul id="flexiselDemo1">
-          <li>
-            <img src="images/bik1.jpg" alt="" />
-            <div class="coffee-info">
-              <div class="model">
-                <h4>FIXED GEAR<span>$249.00</span></h4>
-              </div>
-              <div class="model-info">
-                <select>
-                  <option value="volvo">OPTION</option>
-                  <option value="saab">Option</option>
-                  <option value="opel">Option</option>
-                  <option value="audi">Option</option>
-                </select>
-                <a href="bicycles.html">BUY</a>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="viw">
-              <a href="bicycles.html">Quick View</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+     <div class="coffees">
+	 <div class="mountain-sec">
+		 <h2>OUR PRODUCT</h2>
+			 <coffeeCard> </coffeeCard>
+			 <div class="clearfix"></div>
+		</div>
+	</div>
     <!---->
     <!-- <div class="contact">
       <div class="container">
@@ -132,11 +111,16 @@
 <script>
 // @ is an alias to /src
 import LoginNav from '../components/LoginNav'
+import CoffeeCard from '../components/CoffeeCard2'
 
 export default {
   name: 'Login',
   components: {
-    LoginNav
-  }
+    LoginNav,
+    CoffeeCard
+  },
+  created() {
+    this.$store.dispatch("fetchProducts");
+  },
 }
 </script>

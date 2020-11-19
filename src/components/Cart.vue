@@ -4,12 +4,12 @@
       <h5>{{ cart.Product.name }}</h5>
       <h5 class="card-title" style="font-size: 10px">@ IDR {{ cart.Product.price }}</h5>
       <h5>
-        <a><i class="fas fa-caret-left" style="color: #0278ae; cursor: pointer;"></i></a>
+        <a @click.prevent="minusQty(cart)"><i class="fas fa-caret-left" style="color: #0278ae; cursor: pointer;"></i></a>
         {{ cart.quantity }}
-        <a><i class="fas fa-caret-right" style="color: #0278ae; cursor: pointer;"></i></a>
+        <a @click.prevent="plusQty(cart)"><i class="fas fa-caret-right" style="color: #0278ae; cursor: pointer;"></i></a>
         IDR {{ cart.quantity*cart.Product.price }}
       </h5>
-      <button id="btn-trash" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+      <button @click="deleteCart(cart.id)" id="btn-trash" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
     </div>
   </div>
 </template>
@@ -20,6 +20,15 @@ export default {
   methods: {
     fetchCarts () {
       this.$store.dispatch('fetchCarts')
+    },
+    minusQty (payload) {
+      this.$store.dispatch('minusQty', payload)
+    },
+    plusQty (payload) {
+      this.$store.dispatch('plusQty', payload)
+    },
+    deleteCart (id) {
+      this.$store.dispatch('deleteCart', { id })
     }
   },
   computed: {

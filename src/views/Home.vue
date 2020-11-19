@@ -14,11 +14,23 @@
       </div>
       <div style="text-align: right; margin-right: 20px">
         <h5>Total</h5>
-        <h5>IDR 10.000.000,-</h5>
+        <h5>IDR {{ totalPrice }}</h5>
       </div>
-      <button class="btn btn-primary" style="margin-top: -80px">Buy</button>
+      <button @click="checkout" class="btn btn-primary" style="margin-top: -80px">Buy</button>
     </div>
     <!-- end cart========================================================== -->
+
+    <!-- transaction==================================================== -->
+    <div v-show="!transactionChanger" id="transaction-box">
+      <h2 style="font-family: 'chewy'">Transactions</h2>
+      <div class="transaction-box">
+        <Transaction v-for="transaction in transactions"
+          :key="transaction.id"
+          :transaction="transaction">
+        </Transaction>
+      </div>
+    </div>
+    <!-- end transaction==================================================== -->
 
     <!-- slider image====================================================== -->
     <div
@@ -104,7 +116,7 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" style="color: cornsilk"
+            <a @click.prevent="showTransaction" class="nav-link" href="#" style="color: cornsilk"
               ><b>Transactions</b></a
             >
           </li>
@@ -148,7 +160,7 @@
         <Product v-for="product in products"
             :key="product.id"
             :product="product">
-          </Product>
+        </Product>
       </div>
       <!-- end product card====================================================== -->
     </div>
@@ -215,11 +227,14 @@
 <script>
 import Product from '@/components/Product.vue'
 import Cart from '@/components/Cart.vue'
+import Transaction from '@/components/Transaction.vue'
+import Swal from 'sweetalert2'
 export default {
   name: 'Home',
   data () {
     return {
       changer: true,
+      transactionChanger: true,
       loginChanger: localStorage.access_token
     }
   },
@@ -235,13 +250,30 @@ export default {
       this.$router.push({ path: '/login' })
     },
     logout () {
+      Swal.fire({
+        icon: 'success',
+        title: 'Logout success',
+        showConfirmButton: false,
+        timer: 2000
+      })
       localStorage.clear()
       this.loginChanger = localStorage.access_token
+    },
+    showTransaction () {
+      if (this.transactionChanger === true) {
+        this.transactionChanger = false
+      } else if (this.transactionChanger === false) {
+        this.transactionChanger = true
+      }
+    },
+    checkout () {
+      this.$store.dispatch('checkout')
     }
   },
   components: {
     Product,
-    Cart
+    Cart,
+    Transaction
   },
   computed: {
     products () {
@@ -249,11 +281,22 @@ export default {
     },
     carts () {
       return this.$store.state.carts
+    },
+    transactions () {
+      return this.$store.state.transactions
+    },
+    totalPrice () {
+      let totalPrice = 0
+      this.$store.state.carts.forEach(element => {
+        totalPrice += element.quantity * element.Product.price
+      })
+      return totalPrice
     }
   },
   created () {
     this.$store.dispatch('fetchProducts')
     this.$store.dispatch('fetchCarts')
+    this.$store.dispatch('fetchTransactions')
   }
 }
 </script>
@@ -328,5 +371,24 @@ html {
 #navbar-top {
   background: rgb(2,120,174);
   background: linear-gradient(0deg, rgba(2,120,174,1) 0%, rgba(2,120,174,0.7343312324929971) 59%, rgba(0,212,255,0) 100%);
+}
+#transaction-box {
+  background-color: white;
+  position: fixed;
+  bottom: 60px;
+  left: -20px;
+  width: 50vh;
+  height: 70vh;
+  z-index: 9;
+  -webkit-box-shadow: 10px 10px 5px -4px rgba(0, 0, 0, 0.17);
+  -moz-box-shadow: 10px 10px 5px -4px rgba(0, 0, 0, 0.17);
+  box-shadow: 10px 10px 5px -4px rgba(0, 0, 0, 0.17);
+  padding: 20px 20px 20px 40px;
+  border-radius: 20px;
+}
+.transaction-box {
+  height: 350px;
+  width: 260px;
+  overflow: auto;
 }
 </style>

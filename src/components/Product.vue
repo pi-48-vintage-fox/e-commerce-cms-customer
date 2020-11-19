@@ -24,9 +24,9 @@
           <input type="radio" name="options" id="option1" checked />
           <i class="fas fa-cart-plus"></i>
         </label>
-        <label class="btn btn-primary">
-          <input type="radio" name="options" id="option2" /> Add to Cart
-        </label>
+        <button @click.prevent="addToCart(product)" class="btn btn-primary">
+          Add to Cart
+        </button>
         <div class="btn-heart"><i class="fas fa-heart fa-2x"></i></div>
       </div>
     </div>
@@ -39,6 +39,9 @@ export default {
   methods: {
     fetchProducts () {
       this.$store.dispatch('fetchProducts')
+    },
+    addToCart (payload) {
+      this.$store.dispatch('addToCart', payload)
     }
   },
   computed: {

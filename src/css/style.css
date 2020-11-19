@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@700&family=Montserrat:wght@700;800;900&family=Oswald:wght@500;600;700&family=Rubik:wght@400;500;600;700;900&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+body {
+  background-color: rgb(235, 245, 234);
+}
+.card {
+  border-radius: 12px;
+  /* border: 1px solid rgb(246, 246, 246); */
+  border: 0;
+  overflow: hidden;
+  transition: all 0.25s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 2px 12px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  vertical-align: top;
+}
+
+.cartitem-list-item .card {
+  height: 150px;
+}
+
+.cartitem-list-item .product-quantity {
+  width: 25px;
+  text-align: center;
+}
+
+/*
+ * ─── MATERIAL DESIGN ICONS ──────────────────────────────────────────────────────
+ */
+/* Rules for sizing the icon. */
+.material-icons.md-16 {
+  font-size: 16px;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.material-icons.green {
+  color: #28a745;
+}
+
+.material-icons.btn-delete {
+  color: rgb(121, 121, 121);
+}
+
+.material-icons.btn-delete:hover {
+  color: #a72828;
+}
+
+/*
+ * ─── MATERIAL DESIGN ICONS: END ─────────────────────────────────────────────────
+ */

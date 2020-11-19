@@ -9,8 +9,11 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
+    "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -27,5 +30,14 @@
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^1.19.1",
     "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "plugin:vue/essential",
+      "plugin:prettier/recommended",
+      "plugin:prettier/recommended",
+      "eslint:recommended"
+    ]
   }
 }

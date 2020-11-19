@@ -25,7 +25,7 @@ export default new Vuex.Store({
     getCartsById (state, payload) {
       state.cart = payload
     },
-    setToken (state, payload){
+    setToken (state, payload) {
       state.token = payload
     }
   },
@@ -67,10 +67,10 @@ export default new Vuex.Store({
         })
     },
     fetchProducts (context, payload) {
-      console.log("masuk fetch");
+      console.log('masuk fetch')
       return axios({
         url: '/showProducts',
-        method: 'GET',
+        method: 'GET'
       })
         .then(({
           data
@@ -116,8 +116,8 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    deleteCart(context, payload){
-      console.log(payload);
+    deleteCart (context, payload) {
+      console.log(payload)
       return axios({
         url: `/carts/${payload.id}`,
         method: 'DELETE',
@@ -125,14 +125,14 @@ export default new Vuex.Store({
           access_token: localStorage.getItem('access_token')
         }
       })
-      .then(() => {
-        context.dispatch("fetchCart")
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(() => {
+          context.dispatch('fetchCart')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
-    updateCart(context, payload){
+    updateCart (context, payload) {
       return axios({
         url: `/carts/${payload.id}`,
         method: 'PATCH',
@@ -141,14 +141,14 @@ export default new Vuex.Store({
         },
         headers: {
           access_token: localStorage.getItem('access_token')
-        },
+        }
       })
-      .then(() => {
-        context.dispatch("fetchCart")
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(() => {
+          context.dispatch('fetchCart')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   modules: {}

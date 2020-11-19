@@ -27,7 +27,7 @@
             required
           />
           <div class="form-border"></div>
-          <input id="submit-btn" type="submit" name="submit" value="REGISTER" />
+          <input id="submit-btn" type="submit" name="submit" value="REGISTER" @click.prevent="register" />
         </form>
       </div>
     </div>

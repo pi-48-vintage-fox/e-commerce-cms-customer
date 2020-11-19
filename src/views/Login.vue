@@ -58,7 +58,7 @@ export default {
         .dispatch('login', payload)
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
-          this.$store.commit("setToken", data.access_token)
+          this.$store.commit('setToken', data.access_token)
           this.$router.push('/')
         })
         .catch(err => {

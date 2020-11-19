@@ -37,14 +37,14 @@ export default {
     fetchCart () {
       this.$store.dispatch('fetchCart')
     },
-    deleteCart(id){
-      this.$store.dispatch('deleteCart', {id})
+    deleteCart (id) {
+      this.$store.dispatch('deleteCart', { id })
     },
-    addQty(id){
-      this.$store.dispatch('updateCart', {id, qty : 1})
+    addQty (id) {
+      this.$store.dispatch('updateCart', { id, qty: 1 })
     },
-    subsQty(id){
-      this.$store.dispatch('updateCart', {id, qty : -1})
+    subsQty (id) {
+      this.$store.dispatch('updateCart', { id, qty: -1 })
     }
   },
   computed: {

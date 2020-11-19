@@ -18,7 +18,7 @@
                   </div>
                   <div class="col">
                       <router-link to="/register">
-                    <button type="submit" class="btn btn-primary form-control">LOGIN</button>
+                    <button type="submit" class="btn btn-primary form-control">REGISTER</button>
                     </router-link>
                   </div>
                 </div>

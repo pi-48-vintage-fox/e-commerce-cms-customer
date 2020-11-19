@@ -3,7 +3,7 @@
 <div class="card mb-3 " style="max-width: 540px; ">
   <div class="row no-gutters justify-content-center" v-for="item in carts" :key="item.id">
     <div class="col-md-4">
-      <img :src="`${item.Product.image_url}`" class="card-img" >
+      <img :src="`${item.Product.image_url}`" class="card-img" style="height: 100px" >
     </div>
     <div class="col-md-8">
       <div class="card-body">

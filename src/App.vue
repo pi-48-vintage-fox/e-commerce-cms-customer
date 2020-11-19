@@ -53,10 +53,12 @@ export default {
     ...mapState(['isLoggedIn', 'cart']),
   },
   created() {
-    this.$store.dispatch('fetchUserDetails')
     this.$store.dispatch('fetchProducts')
     this.$store.dispatch('fetchBanners')
-    this.$store.dispatch('fetchCart')
+    if (this.isLoggedIn) {
+      this.$store.dispatch('fetchUserDetails')
+      this.$store.dispatch('fetchCart')
+    }
   },
 
   methods: {

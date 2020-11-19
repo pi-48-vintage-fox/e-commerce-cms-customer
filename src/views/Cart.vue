@@ -1,7 +1,7 @@
 <template>
   <div class="container d-flex flex-row justify-content-center">
     <div class="row justify-content-center">
-      <div v-if="cart.CartProducts.length === 0">
+      <div v-if="cart.CartProducts && cart.CartProducts.length === 0">
         <h1>Your cart is empty</h1>
       </div>
       <div v-else class="row">

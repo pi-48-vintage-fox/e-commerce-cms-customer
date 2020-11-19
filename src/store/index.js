@@ -91,25 +91,27 @@ export default new Vuex.Store({
       //   })
     },
     getTotalPrice({ commit, state }) {
-      let orders = state.cart.CartProducts.map(cartitem => {
-        return {
-          totalItemPrice: +cartitem.quantity * +cartitem.Product.price,
-        }
-      })
+      let orders
+      if (state.cart.CartProducts) {
+        orders = state.cart.CartProducts.map(cartitem => {
+          return {
+            totalItemPrice: +cartitem.quantity * +cartitem.Product.price,
+          }
+        })
+        console.log({ orders })
 
-      console.log({ orders })
+        let totalPrice = 0
 
-      let totalPrice = 0
+        orders.forEach(item => (totalPrice += item.totalItemPrice))
 
-      orders.forEach(item => (totalPrice += item.totalItemPrice))
-
-      // let totalPrice = state.cart.CartProducts.reduce((acc, item) => {
-      //   return acc + item.quantity * item.Product.price
-      // })
-      console.log({ totalPrice })
-      commit('SET_TOTAL_PRICE', totalPrice)
+        // let totalPrice = state.cart.CartProducts.reduce((acc, item) => {
+        //   return acc + item.quantity * item.Product.price
+        // })
+        console.log({ totalPrice })
+        commit('SET_TOTAL_PRICE', totalPrice)
+      }
     },
-    fetchCart({ commit }) {
+    fetchCart({ commit, dispatch }) {
       console.log('fetch cart')
       axios({
         method: 'GET',
@@ -121,6 +123,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data, '<<<<< current cart')
           commit('SET_CART', data)
+          dispatch('getTotalPrice')
         })
         .catch(err => {
           console.log(err.response.data, '<<<<< error fetching cart')

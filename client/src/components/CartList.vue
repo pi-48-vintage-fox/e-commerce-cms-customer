@@ -35,6 +35,8 @@
                     id="qty"
                     width="10"
                     required
+                    min="0"
+                    :max="cart.Product.stock"
                   />
                   <a
                     href=""
@@ -159,17 +161,19 @@ export default {
 
     editModeOnOff () {
       if (this.editMode === false) {
+        this.$store.dispatch('showCart')
         this.editMode = true
       } else {
+        this.$store.dispatch('showCart')
         this.editMode = false
       }
     },
 
     changeQty () {
       this.editModeOnOff()
-      if (this.quantity > this.cart.Product.stock) {
-        Swal.fire('Error', 'Cannot add items more than stock!', 'error')
-        this.quantity = ''
+      if (this.cart.quantity > this.cart.Product.stock || this.cart.quantity < 0) {
+        Swal.fire('Error', 'Cannot add items more than stock or in a negative value!', 'error')
+        this.$store.dispatch('showCart')
       } else {
         Swal.fire('Successful!', `Successfully changed ${this.cart.Product.name} order quantity to ${this.cart.quantity}`, 'success')
         const qtyData = {

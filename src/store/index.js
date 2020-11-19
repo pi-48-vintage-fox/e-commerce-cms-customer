@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../../axios/axiosInstance'
 import router from '../router/index'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -34,10 +35,16 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
+          Swal.fire('Signed in successfully')
           router.push('/')
         })
         .catch(err => {
           console.log(err)
+          Swal.fire(
+            'Error!',
+            err.response.data.msg,
+            'ERROR'
+          )
         })
     },
     register (context, payload) {
@@ -50,10 +57,16 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          Swal.fire('Sucessfully Create An Account')
           router.push('/login')
         })
         .catch(err => {
           console.log(err)
+          Swal.fire(
+            'Error!',
+            err.response.data.msg,
+            'ERROR'
+          )
         })
     },
     fetchProducts (context, payload) {
@@ -107,10 +120,16 @@ export default new Vuex.Store({
         data: payload
       })
         .then(({ data }) => {
+          Swal.fire('Sucessfully Add Product To Cart')
           context.dispatch('fetchCart')
         })
         .catch(err => {
           console.log(err)
+          Swal.fire(
+            'Error!',
+            err.response.data.msg,
+            'ERROR'
+          )
         })
     },
     updateCart (context, payload) {
@@ -127,10 +146,16 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          Swal.fire('Sucessfully Update Cart')
           context.dispatch('fetchCart')
         })
         .catch(err => {
           console.log(err)
+          Swal.fire(
+            'Error!',
+            err.response.data.msg,
+            'ERROR'
+          )
         })
     },
     deleteFromCart (context, payload) {
@@ -143,10 +168,16 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          Swal.fire('Sucessfully Delete From Cart')
           context.dispatch('fetchCart')
         })
         .catch(err => {
           console.log(err)
+          Swal.fire(
+            'Error!',
+            err.response.data.msg,
+            'ERROR'
+          )
         })
     },
     checkOut (context, payload) {
@@ -160,9 +191,15 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.dispatch('fetchCart')
+          Swal.fire(data)
         })
         .catch(err => {
           console.log(err)
+          Swal.fire(
+            'Error!',
+            err.response.data.msg,
+            'ERROR'
+          )
         })
     }
   },

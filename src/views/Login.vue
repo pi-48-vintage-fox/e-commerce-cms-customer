@@ -39,7 +39,6 @@ export default {
         password: this.password
       }
       this.$store.dispatch('login', payload)
-      this.$store.commit('SET_NAVBAR', localStorage.access_token)
     },
     register () {
       this.$router.push('/register')

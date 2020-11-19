@@ -27,6 +27,7 @@ export default new Vuex.Store({
     ],
     carts: [],
     isLogin: false,
+    messageError: ''
   },
   mutations: {
     FETCH_PRODUCTS(state, payload) {
@@ -75,6 +76,9 @@ export default new Vuex.Store({
     STATUS_LOG(state, payload) {
       state.isLogin = payload;
     },
+    MESSAGE_ERROR(state, payload) {
+      state.messageError = payload
+    }
   },
   actions: {
     register(context, payload) {
@@ -87,6 +91,7 @@ export default new Vuex.Store({
           console.log(response.data);
           router.push({ path: '/login' })
           succesToast("Success add a new user!")
+          context.commit('MESSAGE_ERROR', "")
         })
         .catch((err) => console.log(err.response));
     },
@@ -103,7 +108,10 @@ export default new Vuex.Store({
           context.commit("STATUS_LOG", true);
           succesToast('Successfully login')
         })
-        .catch((err) => console.log(err.response));
+        .catch((err) => {
+          console.log(err.response)
+          context.commit('MESSAGE_ERROR', err.response.data.errorMsg)
+        });
     },
     logout(context, payload) {
       localStorage.clear()

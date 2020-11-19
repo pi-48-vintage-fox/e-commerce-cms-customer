@@ -17,13 +17,16 @@
           :type="show1 ? 'text' : 'password'"
           name="input-10-1"
           label="Password"
-          hint="At least 4 characters"
+          hint="Password Required"
           counter
           @click:append="show1 = !show1"
         ></v-text-field>
         <v-btn type="submit">submit</v-btn>
       </v-container>
     </v-form>
+    <v-container>
+      <p class="red--text" color="">{{ messageError }}</p>
+    </v-container>
   </div>
 </template>
 
@@ -37,22 +40,27 @@ export default {
       password: "",
       rules: {
         required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 4 || "Min 8 characters",
+        min: (v) => v.length >= 1 || "Password required",
         emailMatch: () => `The email and password you entered don't match`,
       },
     };
   },
   methods: {
-    login () {
+    login() {
       const payload = {
         email: this.email,
-        password: this.password
-      }
-      this.$store.dispatch("login", payload)
-      this.email = ''
-      this.password = ''
-    }
-  }
+        password: this.password,
+      };
+      this.$store.dispatch("login", payload);
+      this.email = "";
+      this.password = "";
+    },
+  },
+  computed: {
+    messageError() {
+      return this.$store.state.messageError;
+    },
+  },
 };
 </script>
 

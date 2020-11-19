@@ -109,6 +109,7 @@ export default {
         .then(result => {
           this.$store.dispatch('getCart')
           this.$store.dispatch('getProducts')
+          this.$store.dispatch('getWishlist')
         })
         .catch(err => {
           console.log(err.response)

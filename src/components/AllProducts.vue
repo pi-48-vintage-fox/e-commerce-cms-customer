@@ -45,8 +45,8 @@ export default {
 <style scoped>
 #banner {
   margin-bottom: 20px;
-  height: auto;
-  width: 1070.5px;
+  height: 800 !important;
+  width: 1070.5px !important;
 }
 
 #simple-quote {

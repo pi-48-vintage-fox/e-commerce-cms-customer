@@ -117,6 +117,11 @@ export default {
           })
         })
         .catch(err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Wrong Email/Password!'
+          })
           console.log(err)
         })
     },

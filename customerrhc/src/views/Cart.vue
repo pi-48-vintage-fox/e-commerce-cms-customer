@@ -12,11 +12,11 @@
 	 <div class="container">
 
 		 <div class="col-md-9 cart-items" >
-			 <h2>My Shopping Bag ({{$store.state.cart.showCart.length}})</h2>
-			 <h2>My Shopping Bag ({{cartUpdate.length}})</h2>
+			 <!-- <h2>My Shopping Bag ({{$store.state.cart.showCart.length}})</h2> -->
+			 <!-- <h2>My Shopping Bag ({{cartUpdate}})</h2> -->
 			 <div class="cart-header" >
 				 <div class="close1"> </div>
-				 <div class="cart-sec" v-for="cart in $store.state.cart.showCart" :key="cart.id">
+				 <div class="cart-sec" v-for="(cart,i) in $store.state.cart.showCart" :key="cart.id">
 						<div class="cart-item cyc">
 							 <img :src="cart.image_url"/>
 						</div>
@@ -24,23 +24,25 @@
 							 <h3>{{cart.name}}</h3>
 							 <h4><span>Rp.</span>{{cart.price}}</h4>
 							 <p class="qty">Qty ::{{cart.quantity}}</p>
-							 <form @submit.prevent="editCart">
+							 <form @submit.prevent="editCart(cart.id,i)">
 							 	<input min="1" type="number" id="quantity" name="quantity" class="form-control input-small" v-model="cart.Cart.quantity">
-							 	<input type="number" v-model="cart.Cart.ProductId" hidden>
-								<button type="submit">Buy More</button>
+							 	<!-- <input type="number" v-model="cartQuantity[i]"> -->
+								 <!-- <input type="number" v-model="cartUpdate.id"> -->
+								<button type="submit">Update</button>
 							 </form>
 					   </div>
 					   <div class="clearfix"></div>
 						<div class="delivery">
 							 <p>Service Charges:: free</p>
-							 <span>Delivered in 2-3 bussiness days</span>
+							 <span>Delivered in 2-state.cart.showCart is undefined
+    render Cart.vue:173 bussiness days</span>
 							 <div class="clearfix"></div>
 				        </div>
 				  </div>
 			 </div>
 		 </div>
 
-		 <div class="col-md-3 cart-total">
+		 <!-- <div class="col-md-3 cart-total">
 			 <a class="continue" href="#">Continue to basket</a>
 			 <div class="price-details">
 				 <h3>Price Details</h3>
@@ -62,7 +64,7 @@
 				 <a class="cpns" href="#">Apply Coupons</a>
 				 <p><a href="#">Log In</a> to use accounts - linked coupons</p>
 			 </div>
-			</div>
+			</div> -->
 	 </div>
 </div>
 <div class="footer">
@@ -88,28 +90,39 @@ export default {
 	components :{
 		navbarA
 	},
+	data () {
+		return {
+			quantity: []
+		}
+	},
 	methods:{
-		editCart (){
-
-			// this.$store.dispatch('editCart', {quantity:this.cart.Cart.quantity,id:this.cart.Cart.ProductId})
-			// 	.then((data) => {
-			// 		this.$store.dispatch('showCart')
-			// 			this.$router.push('/cart')
-			// 		})
-			// 		.catch(err => {
-			// 			console.log(err)
-			// 			this.errorMessage = err
-			// 		})
+		editCart (id,i){
+			console.log(this.cartQuantity[i],id)
+			this.$store.dispatch('editCart', {quantity:this.quantity[i],id})
+				.then((data) => {
+					this.$store.dispatch('showCart')
+					})
+					.catch(err => {
+						console.log(err)
+						this.errorMessage = err
+					})
 		}
 	},
 	computed: {
-		cartUpdate (){
-			return this.$store.state.cart
+		cartQuantity (){
+			// console.log('a')
+			for (let i = 0 ; i <= this.$store.state.cart.showCart.length-1; i ++) {
+				this.quantity[i] = this.$store.state.cart.showCart[i].Cart.quantity
+				console.log(this.quantity[i],'....')
+			}
+			console.log(this.$store.state.cart.showCart[0].Cart.quantity)
+			console.log(this.quantity,'quantitnya')
+			return this.quantity
 		}
+	},
+	created () {
+		this.$store.dispatch('showCart')
 	}
-	// created () {
-	// 	this.$store.dispatch('showCart')
-	// }
 }
 </script>
 

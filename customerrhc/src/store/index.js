@@ -82,7 +82,7 @@ export default new Vuex.Store({
     buyProduct (context, payload){
       console.log(payload.id)
       const accessToken = localStorage.getItem('access_token')
-      axios ({
+      return axios ({
           method: "POST", 
           url: `/products/addToCart/${payload.id}`,
           headers: { access_token: accessToken }

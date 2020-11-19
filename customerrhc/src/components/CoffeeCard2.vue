@@ -26,8 +26,12 @@ export default {
   methods: {
     buyProduct(product){
       this.$store.dispatch('buyProduct', product)
-      this.$store.dispatch('showCart')
-      this.$router.push('/cart')
+      .then(()=>{
+        return this.$store.dispatch('showCart')
+      })
+      .then(()=>{
+        this.$router.push('/cart')
+      })
     }
   }
 };

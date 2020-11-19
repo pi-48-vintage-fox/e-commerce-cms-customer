@@ -12,7 +12,7 @@
         <router-link to="/cart" class="mr-4 mt-2">
           <i class="material-icons">shopping_cart</i>
           <span
-            v-if="cart.CartProducts.length > 0"
+            v-if="isLoggedIn && cart.CartProducts.length > 0"
             class="badge badge-pill badge-success"
             >{{ cart.CartProducts.length }}</span
           >

@@ -179,6 +179,24 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+
+    checkOut (context, payload) {
+      const token = localStorage.getItem('access_token')
+      axios({
+        method: 'POST',
+        url: 'http://localhost:3000/checkout',
+        headers: {
+          access_token: token
+        }
+      })
+        .then(({ data }) => {
+          Swal.fire('Success Checkout')
+          context.dispatch('fetchProducts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
   },

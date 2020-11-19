@@ -9,6 +9,7 @@
         :cart="cart"
       />
     </div>
+    <button type="button" class="btn btn-info" @click.prevent="checkout">Checkout</button>
   </div>
 </template>
 
@@ -27,6 +28,11 @@ export default {
     },
     fetchProducts () {
       return this.$store.state.products
+    }
+  },
+  methods: {
+    checkout () {
+      return this.$store.dispatch('checkOut')
     }
   },
   created () {

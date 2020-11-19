@@ -14,7 +14,7 @@
       <tbody>
         <tr v-for="cart in carts" :key="cart.id">
           <td>{{cart.Product.name}}</td>
-          <td><img :src="cart.Product.image_url" class="imgtable"></td>
+          <td><img :src="cart.Product.image_url" class="imgtable rounded"></td>
           <td><i @click="subsQty(cart.id)" class="fas fa-minus"></i>   {{cart.quantity}}   <i class="fas fa-plus" @click="addQty(cart.id)"></i> </td>
           <td>{{cart.Product.price * cart.quantity}} </td>
           <td>

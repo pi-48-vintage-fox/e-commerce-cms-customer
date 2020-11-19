@@ -16,7 +16,7 @@
           <p>Stock : {{ product.stock }}</p>
           <button
             type="button"
-            class="btn btn-success"
+            class="btn btn-dark"
             @click="addProductToCart({ ProductId: product.id, quantity: 1 })"
           >
             Add To Cart

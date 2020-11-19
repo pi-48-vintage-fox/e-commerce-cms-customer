@@ -9,7 +9,8 @@ export default new Vuex.Store({
     products: [],
     product: {},
     carts: [],
-    cart: {}
+    cart: {},
+    token: localStorage.access_token
   },
   mutations: {
     getProducts (state, payload) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     getCartsById (state, payload) {
       state.cart = payload
+    },
+    setToken (state, payload){
+      state.token = payload
     }
   },
   actions: {
@@ -65,11 +69,8 @@ export default new Vuex.Store({
     fetchProducts (context, payload) {
       console.log("masuk fetch");
       return axios({
-        url: '/products',
+        url: '/showProducts',
         method: 'GET',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        }
       })
         .then(({
           data

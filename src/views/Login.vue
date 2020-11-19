@@ -28,16 +28,10 @@
           />
         </div>
         <button type="submit" @click.prevent="login" class="btn btn-primary">
-          Submit
+          Login
         </button>
-        <router-link to="/register">
-          <button
-            type="submit"
-            @click.prevent="register"
-            class="btn btn-danger"
-          >
-            Register
-          </button>
+        <router-link to="/register" class="btn btn-dark ">
+          Register
         </router-link>
       </form>
     </div>
@@ -64,6 +58,7 @@ export default {
         .dispatch('login', payload)
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
+          this.$store.commit("setToken", data.access_token)
           this.$router.push('/')
         })
         .catch(err => {

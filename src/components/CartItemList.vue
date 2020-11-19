@@ -1,21 +1,27 @@
 <template>
   <div class="cartitem-list-item d-flex flex-column">
-    <div class="card mb-3">
+    <div class="card mb-1">
       <div class="row no-gutters">
-        <div class="col-md-2">
+        <div class="col-md-3">
           <img
             :src="cartitem.Product.imageUrl"
             class="card-img"
             :alt="cartitem.Product.name"
           />
         </div>
-        <div class="col-md-10">
-          <div class="card-body">
-            <h5 class="card-title">{{ cartitem.Product.name }}</h5>
-            <p class="card-text">
-              {{ toCurrencyFormat(cartitem.Product.price) }}
-            </p>
-            <div class="d-flex flex-row justify-content-end">
+        <div class="col-md-9">
+          <div
+            class="card-body d-flex flex-column justify-content-between h-100"
+          >
+            <div>
+              <h5 class="card-title">{{ cartitem.Product.name }}</h5>
+              <p class="card-text text-success">
+                {{ toCurrencyFormat(cartitem.Product.price) }}
+              </p>
+            </div>
+
+            <div class="d-flex flex-row justify-content-between">
+              <p>Stock: {{ cartitem.Product.stock }}</p>
               <div class="d-flex flex-row">
                 <i
                   style="cursor:pointer"

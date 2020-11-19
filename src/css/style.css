@@ -115,7 +115,25 @@ body {
 }
 
 .cartitem-list-item .card {
-  height: 150px;
+  height: 180px;
+}
+
+.cartitem-list-item .card:hover {
+  transform: translateY(0);
+}
+
+.cartitem-list-item .card-img {
+  height: 180px;
+  /* width: auto; */
+}
+
+.cartitem-list-item .card-title {
+  font-size: 1.35rem;
+}
+
+.cartitem-list-item .card-text {
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .cartitem-list-item .product-quantity {

@@ -12,15 +12,15 @@
               id="components-form-demo-normal-login"
               :form="form"
               class="login-form"
-              @submit="handleSubmit"
+              @submit.prevent="handleSubmit"
             >
               <a-form-item>
                 <a-input
                   v-decorator="[
           'email',
           { rules: [{ required: true, message: 'Please input your email!' }] },
-        ]"        
-                  type="email"  
+        ]"
+                  type="email"
                   placeholder="Email"
                 >
                   <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)"/>
@@ -51,25 +51,45 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
+import NavBar from '@/components/NavBar.vue'
 export default {
-  beforeCreate() {
-    this.form = this.$form.createForm(this, { name: "Register" });
+  beforeCreate () {
+    this.form = this.$form.createForm(this, { name: 'Register' })
   },
   components: {
     NavBar
   },
   methods: {
-    handleSubmit(e) {
-      e.preventDefault();
+    handleSubmit () {
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log("Received values of form: ", values);
+          const payload = {
+            email: values.email,
+            password: values.password
+          }
+          return this.$store.dispatch('register', payload)
+            .then(() => {
+              this.form.email = ''
+              this.form.password = ''
+              return this.$swal.fire({
+                position: 'mid',
+                icon: 'success',
+                title: 'Register Success',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            })
+            .then(() => {
+              this.$router.push('/login')
+            })
+            .catch(err => {
+              console.log(err)
+            })
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 <style>
 #components-form-demo-normal-login .login-form {
@@ -98,6 +118,6 @@ export default {
   margin-top: 30px;
 }
 /* .login-text span {
- 
+
 } */
 </style>

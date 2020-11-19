@@ -20,52 +20,61 @@
   </div>
 </template>
 <script>
-import NavBar from "@/components/NavBar.vue";
-import Table from "@/components/Table.vue";
+import NavBar from '@/components/NavBar.vue'
+import Table from '@/components/Table.vue'
 export default {
-  name: "Cart",
+  name: 'Cart',
   components: {
     NavBar,
     Table
   },
   methods: {
-    fetchCart() {
-      this.$store.dispatch("fetchCart");
+    fetchCart () {
+      this.$store.dispatch('fetchCart')
     },
     checkOut () {
       const payload = {
-          carts: this.carts
+        carts: this.carts
       }
-      console.log(payload);
-      this.$store.dispatch('checkOut', payload)
+      console.log(payload)
+      return this.$store.dispatch('checkOut', payload)
         .then(() => {
           return this.$store.dispatch('fetchProducts')
         })
         .then(() => {
+          return this.$swal.fire({
+            position: 'mid',
+            icon: 'success',
+            title: 'Check Out Success',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
+        .then(() => {
           this.$router.push('/')
         })
-        .catch((err => {
-          console.log(err);
-        }))
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   computed: {
-    carts() {
-      return this.$store.state.carts;
+    carts () {
+      return this.$store.state.carts
     },
     totalBelanja () {
       let totalPrice = 0
-      for(let i = 0; i < this.$store.state.carts.length; i++){
-        let total = this.$store.state.carts[i].total
-        totalPrice += total 
+      for (let i = 0; i < this.$store.state.carts.length; i++) {
+        const total = this.$store.state.carts[i].total
+        totalPrice += total
       }
       return totalPrice
     }
   },
-  created() {
-    this.fetchCart();
+  created () {
+    this.fetchCart()
   }
-};
+}
 </script>
 <style>
 .container-cart {
@@ -83,14 +92,14 @@ export default {
 }
 .row-wrapper {
   display: flex;
-  margin-left: 100px 
+  margin-left: 100px
 }
 .col-table {
   width: 40%;
 }
 .text-ringkasan {
   margin-left: 10px;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 .p-left {
   float: left;
@@ -104,6 +113,3 @@ export default {
   width: 97%
 }
 </style>
-
-
-

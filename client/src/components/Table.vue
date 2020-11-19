@@ -37,38 +37,41 @@
         <button class="btn btn-danger btn-plus-minus" @click.prevent="minus(cart.id)">-</button>
       </div>
       <div class="number-text">
-        <b-form-input v-model="cart.quantity" type="number"></b-form-input>
+        {{cart.quantity}}
       </div>
-      <div class="btn-wrapper-right">
+      <div class="btn-wrapper-right" v-if="cart.quantity < cart.stock">
         <button class="btn btn-primary btn-plus-minus" @click.prevent="plus(cart.id)">+</button>
+      </div>
+       <div class="btn-wrapper-right" v-else-if="cart.stock  <= cart.quantity ">
+        <button disabled class="btn btn-primary btn-plus-minus" @click.prevent="plus(cart.id)">+</button>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "Table",
-  props: ["cart"],
+  name: 'Table',
+  props: ['cart'],
   methods: {
-    minus(id) {
-      this.cart.quantity -= 1;
-      console.log(this.cart.quantity);
+    minus (id) {
+      this.cart.quantity -= 1
+      console.log(this.cart.quantity)
       const payload = {
         quantity: this.cart.quantity,
         id: id,
         total: this.cart.quantity * this.cart.price
       }
-        return this.$store.dispatch('minus', payload)
-          .then(() => {
-            return this.$store.dispatch('fetchCart')
-          })
-          .catch(err => {
-            console.log(err.response);   
-          })
+      return this.$store.dispatch('minus', payload)
+        .then(() => {
+          return this.$store.dispatch('fetchCart')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
     },
-    plus(id) {
-      this.cart.quantity += 1;
-      console.log(this.cart.quantity);
+    plus (id) {
+      this.cart.quantity += 1
+      console.log(this.cart.quantity)
       const payload = {
         quantity: this.cart.quantity,
         id: id,
@@ -79,20 +82,20 @@ export default {
           return this.$store.dispatch('fetchCart')
         })
         .catch(err => {
-          console.log(err.response);   
+          console.log(err.response)
         })
     },
     deleteCart (id) {
-      this.$store.dispatch('deleteCart', id)
+      return this.$store.dispatch('deleteCart', id)
         .then(() => {
-         return this.$store.dispatch('fetchCart')
+          return this.$store.dispatch('fetchCart')
         })
         .catch((err) => {
-          console.log(err); 
+          console.log(err)
         })
     }
   }
-};
+}
 </script>
 <style>
 .cart-table {
@@ -126,7 +129,7 @@ export default {
 }
 .number-text {
   width: 15%;
-  margin-top: -10px;
+  margin-top:5px;
 }
 input[type="number"] {
   background: transparent;
@@ -144,11 +147,13 @@ input[type="number"] {
   width: 10%;
   margin-left: 10px;
   margin-right: 10px;
+  border-radius: 40px;
 }
 .btn-wrapper-right {
   width: 10%;
   margin-left: -10px;
   margin-right: 10px;
+  border-radius: 40px;
 }
 .icon-delete {
   margin-top: -5px;
@@ -165,4 +170,3 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 </style>
-

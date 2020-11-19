@@ -5,7 +5,7 @@
       <h2 style="color: white;" class="mt-3">PROUCTS</h2>
       <div class="container">
         <div class="row">
-            <Card 
+            <Card
               v-for="prod in products"
               :key="prod.id"
               :prod="prod"

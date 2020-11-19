@@ -19,24 +19,28 @@ export default new Vuex.Store({
   },
   actions: {
     login (context, values) {
-        return axios({
-          url: '/login',
-          method: 'POST',
-          data: {
-            email: values.email,
-            password: values.password
-          }
+      return axios({
+        url: '/login',
+        method: 'POST',
+        data: {
+          email: values.email,
+          password: values.password
+        }
+      })
+        .then(({ data }) => {
+          localStorage.setItem('access_token', data.access_token)
+          localStorage.setItem('username', data.username)
         })
-          .then(({data}) => {
-            localStorage.setItem('access_token', data.access_token)
-          })
+        .catch(err => {
+          console.log(err)
+        })
     },
     fetchProducts (context) {
       return axios({
         url: '/customers',
         method: 'GET'
       })
-        .then(({ data }) => { 
+        .then(({ data }) => {
           context.commit('SET_PRODUCTS', data.products)
         })
     },
@@ -49,8 +53,8 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data) 
-          context.commit('SET_CARTS',data.carts)
+          console.log(data)
+          context.commit('SET_CARTS', data.carts)
         })
     },
     addToCarts (context, payload) {
@@ -62,12 +66,11 @@ export default new Vuex.Store({
         },
         data: payload
       })
-        .then(({data}) => {
+        .then(({ data }) => {
           console.log(data, 'berhasil add to cart')
         })
         .catch(err => {
           console.log(err, 'gagal add to cart')
-          
         })
     },
     deleteCart (context, id) {
@@ -78,11 +81,11 @@ export default new Vuex.Store({
           access_token: localStorage.access_token
         }
       })
-        .then(({data}) => {
-          console.log(data, 'sukses delete');    
+        .then(({ data }) => {
+          console.log(data, 'sukses delete')
         })
         .catch(err => {
-          console.log(err);     
+          console.log(err)
         })
     },
     minus (context, payload) {
@@ -94,11 +97,11 @@ export default new Vuex.Store({
         },
         data: {
           quantity: payload.quantity,
-          total:payload.total
+          total: payload.total
         }
       })
-        .then(({data}) => {
-          console.log(data, 'berhasil kurang');      
+        .then(({ data }) => {
+          console.log(data, 'berhasil kurang')
         })
     },
     plus (context, payload) {
@@ -110,11 +113,11 @@ export default new Vuex.Store({
         },
         data: {
           quantity: payload.quantity,
-          total:payload.total
+          total: payload.total
         }
       })
-        .then(({data}) => {
-          console.log(data, 'berhasil tambah');      
+        .then(({ data }) => {
+          console.log(data, 'berhasil tambah')
         })
     },
     checkOut (context, payload) {
@@ -129,12 +132,23 @@ export default new Vuex.Store({
         }
       })
         .then(() => {
-          console.log('checkout jalan'); 
+          console.log('checkout jalan')
         })
         .catch((err) => {
-          console.log(err,'chekout gagal');      
+          console.log(err, 'chekout gagal')
         })
-    } 
+    },
+    register (context, payload) {
+      return axios({
+        url: '/register',
+        method: 'POST',
+        data: payload
+      })
+        .then(({ data }) => {
+          console.log(data)
+          console.log('berhasil register')
+        })
+    }
   },
   modules: {
   }

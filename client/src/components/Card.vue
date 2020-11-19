@@ -13,30 +13,43 @@
         <div class="stock mt-1 ml-3">
           Stock: {{prod.stock}}
         </div>
-        <div class="btn-cart mt-2">
+        <div class="btn-cart mt-2" v-if="prod.stock > 0">
             <button class="btn btn-primary btn-sm" style="width: 100%" @click.prevent="addToCarts">Add to Cart</button>
         </div>
-        <div class="btn-wish mt-2">
-            <button class="btn btn-danger btn-sm" style="width: 100%">Add to Wish List</button>
+        <div class="btn-cart mt-2" v-if="prod.stock < 1">
+            <button class="btn btn-primary btn-sm" style="width: 100%" @click.prevent="addToCarts">Add to Cart</button>
         </div>
       </div>
     </div>
 </template>
 <script>
 export default {
-  name: "Card",
+  name: 'Card',
   props: ['prod'],
   methods: {
     addToCarts () {
       console.log('terekan')
-      const payload = {
-        productId: this.prod.id,
-        quantity: 1,
+      if (localStorage.access_token) {
+        const payload = {
+          productId: this.prod.id,
+          quantity: 1
+        }
+        this.$store.dispatch('addToCarts', payload)
+          .then(() => {
+            return this.$swal.fire({
+              position: 'mid',
+              icon: 'success',
+              title: 'Berhasil Ditambahkan ke Cart',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          })
+      } else {
+        this.$router.push('/login')
       }
-      this.$store.dispatch('addToCarts', payload)  
     }
   }
-};
+}
 </script>
 <style>
 .card-container {
@@ -59,13 +72,11 @@ export default {
 .btn-cart {
   width: 80%;
   margin-left: auto;
-  margin-right: auto 
+  margin-right: auto
 }
 .btn-wish {
   width: 80%;
   margin-left: auto;
-  margin-right: auto 
+  margin-right: auto
 }
 </style>
-
-

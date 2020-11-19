@@ -1,18 +1,29 @@
 <template>
-  <div class="category-list">
       <li class="list-group-item"> <a href="" @click.prevent="filterProduct(category.name)">{{ category.name }}</a></li>
-  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Categories',
   props: ['category'],
+  data () {
+    return {
+      filter: []
+    }
+  },
   methods: {
     filterProduct (category) {
-      console.log(category)
-      this.$store.getters.categoryFilter(category)
+      this.$store.state.products = this.categoryFilter(category)
     }
+  },
+  computed: {
+    ...mapGetters([
+      'categoryFilter'
+    ])
+  },
+  created () {
+    this.categoryFilter()
   }
 }
 </script>

@@ -48,7 +48,10 @@ export default {
       this.$store.dispatch('buy', buyProduct)
         .then(({ data }) => {
           this.$store.dispatch('deleteCart', buyProduct)
-          location.reload()
+            .then(({ data }) => {
+              this.$store.dispatch('fetchCart')
+            })
+            .catch(console.log)
         })
         .catch(err => {
           if (err.response.status === 500) {

@@ -3,10 +3,12 @@
     <Carousel class="carousel"/>
     <div class="categories mt-5">
       <ul class="list-group">
-        <CategoriesList
-          v-for="category in categories" :key="category.id"
-          :category="category"
-        />
+        <div class="category-list">
+          <CategoriesList
+            v-for="category in categories" :key="category.id"
+            :category="category"
+          />
+        </div>
       </ul>
   </div>
     <div class="container">
@@ -48,13 +50,9 @@ export default {
   computed: {
     products () {
       return this.$store.state.products
-      // return this.$store.getters.categoryFilter(this.category)
     },
     categories () {
       return this.$store.state.categories
-    },
-    filterProduct () {
-      return this.$store.state.filterProducts
     }
   },
   created () {

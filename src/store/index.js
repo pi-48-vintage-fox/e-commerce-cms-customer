@@ -11,8 +11,7 @@ export default new Vuex.Store({
     product: {},
     categories: [],
     banners: [],
-    carts: [],
-    filterProducts: []
+    carts: []
   },
   mutations: {
     getProducts (state, payload) {
@@ -209,8 +208,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data, '<< add')
-          location.reload()
+          this.dispatch('fetchCart')
         })
         .catch(console.log)
     },
@@ -227,8 +225,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data, '<< patch')
-          location.reload()
+          this.dispatch('fetchCart')
         })
         .catch(console.log)
     },
@@ -246,11 +243,9 @@ export default new Vuex.Store({
   },
   getters: {
     categoryFilter: (state) => (category) => {
-      return state.products.filter(product => {
-        if (product.category === category) {
-          state.filterProducts = product
-        }
-      })
+      return state.products.filter(product =>
+        product.Category.name === category
+      )
     }
   }
 })

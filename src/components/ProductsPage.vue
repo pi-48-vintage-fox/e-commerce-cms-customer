@@ -4,12 +4,12 @@
       <img class="card-img-top" :src="product.image_url" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"><a href="#" @click.prevent="detailProduct(product.id)">{{ product.name }}</a></h5>
-          <a href="" @click.prevent="findCartById(product.id)" class="btn btn-info card-text">Add to cart</a>
+          <a href="#" @click.prevent="findCartById(product.id)" class="btn btn-info card-text">Add to cart</a>
           <span class="badge badge-primary ml-5 card-text">{{ product.Category.name }}</span>
           <p class="card-text mt-3">Available: {{product.stock}}</p>
       </div>
       <div class="card-footer">
-        <p class="card-text">{{ product.price }}</p>
+        <p class="card-text">Rp. {{ product.price.toLocaleString('id-ID') }}</p>
       </div>
     </div>
   </div>

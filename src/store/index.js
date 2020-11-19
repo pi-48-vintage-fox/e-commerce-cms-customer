@@ -85,6 +85,8 @@ export default new Vuex.Store({
       })
         .then((response) => {
           console.log(response.data);
+          router.push({ path: '/login' })
+          succesToast("Success add a new user!")
         })
         .catch((err) => console.log(err.response));
     },

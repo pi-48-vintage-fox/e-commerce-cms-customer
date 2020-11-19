@@ -103,6 +103,7 @@
 
 <script>
 import { mapState } from "vuex";
+import Swal from "sweetalert2";
 
 export default {
   name: "Products",
@@ -123,6 +124,21 @@ export default {
   },
   methods: {
     showing(id, price, image, productName) {
+      if (!localStorage.access_token) {
+        return Swal.fire({
+          title: "You are not logged in, want to login?",
+          text: "you have login to order",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes,sure!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$router.push({ path: "/login" });
+          }
+        });
+      }
       if (this.ProductId !== null) {
         this.ProductId = null;
       }
@@ -134,7 +150,7 @@ export default {
       this.productName = productName;
     },
     addToCart() {
-      this.errorMsg = ''
+      this.errorMsg = "";
       let size =
         this.size[0].toLowerCase() == "x"
           ? this.size.slice(0, 2)
@@ -151,8 +167,8 @@ export default {
         totalPrice: this.getTotalPrice,
         stock: this.getStock,
       };
-      this.quantity = ""
-      this.size = ""
+      this.quantity = "";
+      this.size = "";
       let prodInCart = this.carts
         .filter((e) => e.ProductId == this.ProductId)
         .find((elem) => elem.size == size);
@@ -229,6 +245,7 @@ export default {
     ...mapState({
       // ...
       products: "products",
+      isLogin: "isLogin",
     }),
   },
   created() {

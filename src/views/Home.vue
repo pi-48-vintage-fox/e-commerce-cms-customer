@@ -1,7 +1,7 @@
 <template>
   <div>
     <Banner />
-    <ProductCategories />
+    <!-- <ProductCategories /> -->
     <ProductList />
   </div>
 </template>

@@ -3,39 +3,6 @@
 body {
   background-color: rgb(235, 245, 234);
 }
-.card {
-  border-radius: 12px;
-  /* border: 1px solid rgb(246, 246, 246); */
-  border: 0;
-  overflow: hidden;
-  transition: all 0.25s ease-in-out;
-}
-
-.card:hover {
-  box-shadow: 2px 12px 30px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
-}
-
-.card-title {
-  font-size: 1rem;
-  font-weight: 600;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.badge {
-  vertical-align: top;
-}
-
-.cartitem-list-item .card {
-  height: 150px;
-}
-
-.cartitem-list-item .product-quantity {
-  width: 25px;
-  text-align: center;
-}
 
 /*
  * ─── MATERIAL DESIGN ICONS ──────────────────────────────────────────────────────
@@ -89,3 +56,47 @@ body {
 /*
  * ─── MATERIAL DESIGN ICONS: END ─────────────────────────────────────────────────
  */
+
+.card {
+  border-radius: 12px;
+  /* border: 1px solid rgb(246, 246, 246); */
+  border: 0;
+  overflow: hidden;
+  transition: all 0.25s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 2px 12px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  vertical-align: top;
+}
+
+.cartitem-list-item .card {
+  height: 150px;
+}
+
+.cartitem-list-item .product-quantity {
+  width: 25px;
+  text-align: center;
+}
+
+.summary {
+  padding: 2rem;
+  border-radius: 12px;
+  background: white;
+}
+
+.VueCarousel {
+  text-align: center;
+}

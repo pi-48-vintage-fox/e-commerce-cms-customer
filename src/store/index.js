@@ -93,19 +93,19 @@ export default new Vuex.Store({
     getTotalPrice({ commit, state }) {
       let orders = state.cart.CartProducts.map(cartitem => {
         return {
-          quantity: cartitem.quantity,
-          price: cartitem.Product.price,
-          totalPrice: cartitem.totalPrice,
+          totalItemPrice: +cartitem.quantity * +cartitem.Product.price,
         }
       })
 
-      // let totalPrice = orders.forEach(order => {
-      //   return order.quantity
-      // })
+      console.log({ orders })
 
-      let totalPrice = state.cart.CartProducts.reduce((acc, item) => {
-        return acc + item.quantity * item.Product.price
-      })
+      let totalPrice = 0
+
+      orders.forEach(item => (totalPrice += item.totalItemPrice))
+
+      // let totalPrice = state.cart.CartProducts.reduce((acc, item) => {
+      //   return acc + item.quantity * item.Product.price
+      // })
       console.log({ totalPrice })
       commit('SET_TOTAL_PRICE', totalPrice)
     },
@@ -160,6 +160,7 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log(err.response.data, '>>>> error add product to cart')
+          dispatch('fetchCart')
         })
     },
     signOut({ commit }) {

@@ -8,10 +8,9 @@
           :cartitem="cartitem"
           :cart="cart"
           class="col-12 mb-3"
-          style="border:1px solid black"
         />
       </div>
-      <div class="col-3" style="height:200px;border:1px solid black">
+      <div class="col-3">
         <CartSummary />
       </div>
     </div>

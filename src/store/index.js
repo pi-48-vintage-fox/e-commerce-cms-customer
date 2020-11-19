@@ -122,6 +122,7 @@ export default new Vuex.Store({
           router.push({ path: '/login' })
         })
         .catch(err => {
+          console.log(err);
           Swal.fire(
             'Error!',
             err.response.data.message,

@@ -85,7 +85,10 @@ export default new Vuex.Store({
       axios({
         method: 'POST',
         url: 'https://frish-commerce.herokuapp.com/login',
-        data: payload
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
       })
         .then(response => {
           Swal.fire({
@@ -109,7 +112,10 @@ export default new Vuex.Store({
       axios({
         method: 'POST',
         url: 'https://frish-commerce.herokuapp.com/register',
-        data: payload
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
       })
         .then(response => {
           Swal.fire({

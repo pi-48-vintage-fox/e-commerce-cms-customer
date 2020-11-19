@@ -105,6 +105,28 @@ export default new Vuex.Store({
           )
         })
     },
+    register (context, payload) {
+      axios({
+        method: 'POST',
+        url: 'https://frish-commerce.herokuapp.com/register',
+        data: payload
+      })
+        .then(response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Register success',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        })
+        .catch(err => {
+          Swal.fire(
+            'Error!',
+            err.response.data.message,
+            'ERROR'
+          )
+        })
+    },
     addToCart ({ dispatch }, payload) {
       axios({
         method: 'POST',

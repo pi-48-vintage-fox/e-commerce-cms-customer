@@ -24,12 +24,12 @@
         </div>
         <div v-show="!changer" class="register-box">
           <h3 style="margin-bottom: 20px;">Register Form</h3>
-          <form action="">
+          <form @submit.prevent="register">
             <div class="form-group">
-              <input id="email-regis" class="form-control" type="email" placeholder="Type your email..">
+              <input v-model="email_register" id="email-regis" class="form-control" type="email" placeholder="Type your email..">
             </div>
             <div class="form-group">
-              <input id="password-regis" class="form-control" type="password" placeholder="Type your password..">
+              <input v-model="password_register" id="password-regis" class="form-control" type="password" placeholder="Type your password..">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
@@ -44,7 +44,9 @@ export default {
     return {
       changer: true,
       email_login: '',
-      password_login: ''
+      password_login: '',
+      email_register: '',
+      password_register: ''
     }
   },
   methods: {
@@ -61,6 +63,13 @@ export default {
       } else if (this.changer === false) {
         this.changer = true
       }
+    },
+    register () {
+      const payload = {
+        email: this.email_register,
+        password: this.password_register
+      }
+      this.$store.dispatch('register', payload)
     }
   }
 }

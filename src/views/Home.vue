@@ -4,6 +4,19 @@
 
     <div class="container">
       <div class="columns mt-5">
+        <h3 class="title is-3 ml-3">
+          Our Products
+        </h3>
+      </div>
+
+      <div class="columns is-multiline mt-1">
+        <product-card v-for="product in products" :key='product.id' :product=product></product-card>
+      </div>
+      <div class="columns mt-5 not-implemented" >
+        <div class="not-implemented-overlay">
+          <h2 class="title is-2">NOT YET IMPLEMENTED</h2>
+          <h3 class="subtitle is-3">&#128557;</h3>
+        </div>
         <div class="column is-half">
           <h3 class="is-3 title">
             Everything You Need<br/>
@@ -30,7 +43,11 @@
            </div>
         </div>
       </div>
-      <div class="columns is-multiline">
+      <div class="columns is-multiline not-implemented">
+        <div class="not-implemented-overlay">
+          <h2 class="title is-2">NOT YET IMPLEMENTED</h2>
+          <h3 class="subtitle is-3">&#128557;</h3>
+        </div>
         <category-card
           caption="PAPER"
           ImageUrl="https://cdn.shopify.com/s/files/1/0203/6554/1476/files/banner33_1_370x497_crop_top.png?v=1547809580"/>
@@ -50,7 +67,12 @@
           caption="FOOD"
           ImageUrl="https://cdn.shopify.com/s/files/1/0203/6554/1476/files/banner33_4_370x497_crop_top.png?v=1547809705"/>
       </div>
-      <div class="columns mt-5 mb-5">
+
+      <div class="columns mt-5 mb-5 not-implemented">
+        <div class="not-implemented-overlay">
+          <h2 class="title is-2">NOT YET IMPLEMENTED</h2>
+          <h3 class="subtitle is-3">&#128557;</h3>
+        </div>
         <div class="column is-half">
           <div class="promo">
             <img src="https://cdn.shopify.com/s/files/1/0203/6554/1476/files/banner_countdown_col_7_652x325_crop_top.png?v=1548087967" alt="">
@@ -78,20 +100,133 @@
         </div>
       </div>
     </div>
+    <sweet-modal ref='modal'>
+      <h4 class="subtitle is-4">Register an Account</h4>
+      <div class="field">
+        <label class="label">Full Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Full Name" v-model="register.name">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="email" placeholder="Email" v-model="register.email">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input class="input" type="password" placeholder="Password" v-model="register.password">
+        </div>
+      </div>
+      <div class="field">
+        <a class="button btn-tan" @click.prevent="registerUser">Register</a>
+      </div>
+    </sweet-modal>
+    <sweet-modal ref='modal_login'>
+      <div class="columns">
+        <div class="column">
+          <h5 class="title is-5">Please login to first</h5>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column">
+           <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <input class="input" type="email" placeholder="Username" v-model="login.email">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+              <input class="input" type="password" placeholder="Password" v-model="login.password">
+            </div>
+          </div>
+          <div class="field">
+            <button class="button btn-tan" @click.prevent="doLogin">Sign in</button>
+          </div>
+          <div class="field">
+            <p class="is-size-7">Need account ?
+              <a @click.prevent='openRegisterModal'> Register </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </sweet-modal>
   </div>
 </template>
 
 <script>
 import Carousel from '../components/Carousel.vue'
 import CategoryCard from '../components/CategoryCard.vue'
-
-// @ is an alias to /src
-
+import ProductCard from '../components/ProductCard.vue'
 export default {
   name: 'Home',
   components: {
     Carousel,
-    CategoryCard
+    CategoryCard,
+    ProductCard
+  },
+  data () {
+    return {
+      register: {
+        name: '',
+        password: '',
+        email: ''
+      },
+      login: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  events: {
+    registerModalOpen () {
+      this.$refs.modal.open()
+    },
+    loginModalOpen () {
+      this.$refs.modal_login.open()
+    },
+    on_login_success () {
+      this.$refs.modal_login.close()
+    },
+    on_register_success () {
+      this.$refs.modal.close()
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  },
+  methods: {
+    registerUser () {
+      const payload = {
+        name: this.register.name,
+        password: this.register.password,
+        email: this.register.email
+      }
+      this.$store.dispatch('register', payload)
+    },
+    openRegisterModal () {
+      this.$refs.modal.open()
+      this.$refs.modal_login.close()
+    },
+    doLogin () {
+      const payload = {
+        email: this.login.email,
+        password: this.login.password
+      }
+      this.$store.dispatch('login', payload)
+    }
+  },
+  created () {
+    this.$store.dispatch('fetchProducts')
+    this.$store.dispatch('fetchCategories')
+    this.$store.commit('SET_LOGGED_IN')
+    this.$store.dispatch('fetchUserCart')
   }
 }
 </script>

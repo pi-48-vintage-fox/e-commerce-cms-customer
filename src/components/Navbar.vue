@@ -18,34 +18,65 @@
           <a class="navbar-item">
             HOME
           </a>
-
-          <a class="navbar-item">
-            PRODUCTS
-          </a>
-
-          <a class="navbar-item">
-            ABOUT US
-          </a>
         </div>
 
         <div class="navbar-end">
           <div class="navbar-item">
             <i class="fas fa-heart mr-2"></i>
-            <p class="is-size-6">Wishlist</p>
+            <p class="is-size-6 coret">Wishlist</p>
           </div>
           <div class="navbar-item">
-            <i class="fas fa-shopping-bag mr-2"></i>
-            <p class="is-size-6">My Cart</p>
+            <tippy trigger='click' :interactive=true theme='light bordered' :maxWidth=500>
+              <template v-slot:trigger>
+                <div class="navbar-item" style="cursor:pointer">
+                  <i class="fas fa-shopping-bag mr-2"></i>
+                  <p class="is-size-6">My cart</p>
+                </div>
+              </template>
+              <div class="cart">
+                <div class="not-logged-in" v-if="!isLoggedIn">
+                  <p>It seems you are not logged in yet</p>
+                  <login-card ></login-card>
+                </div>
+                <cart v-else></cart>
+              </div>
+            </tippy>
+          </div>
+          <div class="navbar-item">
+            <a href="#" @click.prevent='logout' class="navbar-item" v-if="isLoggedIn">Log out</a>
           </div>
         </div>
       </div>
     </div>
+
   </nav>
 </template>
 
 <script>
+import Cart from './Cart.vue'
+import LoginCard from './LoginCard.vue'
 export default {
-
+  components: {
+    LoginCard,
+    Cart
+  },
+  data () {
+    return {
+      trigger: false,
+      login: false
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.state.isLoggedIn
+    }
+  },
+  methods: {
+    logout () {
+      localStorage.clear()
+      this.$store.commit('SET_LOGOUT')
+    }
+  }
 }
 </script>
 

@@ -1,18 +1,12 @@
 <template>
   <agile @after-change="e => currentSlide = e.currentSlide" :navButtons=false>
-      <div class="slide">
-        <img src="https://cdn.shopify.com/s/files/1/0203/6554/1476/files/slide1_2048x755_crop_top.png?v=1547809197" alt="">
-      </div>
-      <div class="slide">
-        <img src="https://cdn.shopify.com/s/files/1/0203/6554/1476/files/slide_2_2048x755_crop_top.png?v=1547809193" alt="">
-      </div>
-      <div class="slide">
-        <img src="https://cdn.shopify.com/s/files/1/0203/6554/1476/files/slide_3_2048x755_crop_top.png?v=1547809195" alt="">
+      <div class="slide" v-for="slide in banners" :key=slide.id>
+        <img :src="slide.image_url">
       </div>
       <template slot="caption">
-        <h2 class="is-2 title">{{ captions[currentSlide] }}</h2>
-        <h5 class="is-5 subtitle mt-2">{{ subCaptions[currentSlide] }}</h5>
-        <router-link :to=buttonLink[currentSlide] class="button">SHOP NOW</router-link>
+        <h2 class="is-2 title">{{ banner.caption }}</h2>
+        <h5 class="is-5 subtitle mt-2">{{ banner.sub_caption }}</h5>
+        <router-link :to=banner.link class="button">SHOP NOW</router-link>
       </template>
   </agile>
 </template>
@@ -24,14 +18,18 @@ export default {
   components: {
     agile: VueAgile
   },
+  computed: {
+    banner () {
+      const captions = this.$store.state.banners[this.currentSlide]
+      return captions
+    },
+    banners () {
+      return this.$store.state.banners
+    }
+  },
   data () {
     return {
       currentSlide: 0,
-      captions: [
-        'The Complete Packaging Supplies Store',
-        'Customized Packaging for Your Business',
-        'Any Box for Bottles Can Transform Into a Gift Box'
-      ],
       subCaptions: [
         'WE OFFER PACKAGING OF ANY MATERIALS',
         'WE ARE ALWAYS HERE TO HELP YOU',
@@ -43,6 +41,9 @@ export default {
         '/pallet'
       ]
     }
+  },
+  beforeCreate () {
+    this.$store.dispatch('fetchBanners')
   }
 }
 </script>

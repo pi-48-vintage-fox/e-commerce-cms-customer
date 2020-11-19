@@ -14,21 +14,21 @@
 </template>
 
 <script>
-import CartsCard from "../components/CartsCard";
+import CartsCard from '../components/CartsCard'
 export default {
-  name: "Carts",
+  name: 'Carts',
   components: {
     CartsCard
   },
-  created() {
-    this.$store.dispatch("fetchCarts");
+  created () {
+    this.$store.dispatch('fetchCarts')
   },
   computed: {
-    carts() {
-      return this.$store.state.carts;
-    },
-  },
-};
+    carts () {
+      return this.$store.state.carts
+    }
+  }
+}
 </script>
 <style>
 </style>

@@ -42,13 +42,13 @@
 export default {
   name: 'Navbar',
   methods: {
-    logout() {
+    logout () {
       console.log('xxx')
       localStorage.clear()
       this.$router.push({ path: '/login' })
     }
   }
-};
+}
 </script>
 
 <style>

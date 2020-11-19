@@ -37,35 +37,42 @@
           />
         </svg>
       </div>
-      <AddCart v-show="addForm === true" :product="product"></AddCart>
+      <AddCart
+        v-show="addForm === true"
+        :product="product"
+        @cancel="cancel"
+      ></AddCart>
     </div>
   </div>
 </template>
 
 <script>
-import AddCart from "./AddCart";
+import AddCart from './AddCart'
 export default {
-  name: "ProductCard",
-  props: ["product"],
+  name: 'ProductCard',
+  props: ['product'],
   components: {
-    AddCart,
+    AddCart
   },
-  data() {
+  data () {
     return {
-      addForm: false,
-    };
+      addForm: false
+    }
   },
   methods: {
-    addCart() {
-      this.addForm = true;
+    addCart () {
+      this.addForm = true
     },
+    cancel (value) {
+      this.addForm = value
+    }
   },
   computed: {
-    addFrom() {
-      return this.$store.state.addForm;
-    },
-  },
-};
+    addFrom () {
+      return this.$store.state.addForm
+    }
+  }
+}
 </script>
 
 <style>

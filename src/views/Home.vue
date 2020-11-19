@@ -17,20 +17,20 @@
 
 <script>
 // @ is an alias to /src
-import ProductsCard from "../components/ProductsCard";
+import ProductsCard from '../components/ProductsCard'
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
-    ProductsCard,
+    ProductsCard
   },
-  created() {
-    this.$store.dispatch("fetchProducts");
+  created () {
+    this.$store.dispatch('fetchProducts')
     // this.$store.commit('FETCH_PRODUCT', product)
   },
   computed: {
-    products() {
-      return this.$store.state.products;
-    },
-  },
-};
+    products () {
+      return this.$store.state.products
+    }
+  }
+}
 </script>

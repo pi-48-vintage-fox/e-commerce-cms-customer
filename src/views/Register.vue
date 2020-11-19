@@ -33,29 +33,29 @@
 
 <script>
 export default {
-  name: "Register",
-  data() {
+  name: 'Register',
+  data () {
     return {
-      email: "",
-      password: "",
-    };
+      email: '',
+      password: ''
+    }
   },
   methods: {
-    register() {
+    register () {
       const user = {
         email: this.email,
-        password: this.password,
-      };
-      this.$store.dispatch("register", user)
-      .then((data) => {
-        this.$router.push({ path: "/login" });
-      })
-      .catch(err=> {
-        console.log(err)
-      })
-    },
-  },
-};
+        password: this.password
+      }
+      this.$store.dispatch('register', user)
+        .then((data) => {
+          this.$router.push({ path: '/login' })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
+}
 </script>
 
 <style>

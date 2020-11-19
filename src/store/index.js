@@ -70,6 +70,45 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    addCart (context, payload) {
+      const access_token = localStorage.getItem('access_token')
+      axios({
+        method: 'POST',
+        url: `/cart/${payload.id}`,
+        headers: {
+          access_token
+        }
+      })
+    },
+    removeItem (context, payload) {
+      const access_token = localStorage.getItem('access_token')
+      axios({
+        method: 'DELETE',
+        url: `/cart/${payload.id}`,
+        headers: {
+          access_token
+        }
+      })
+    },
+    updateItem (context, payload) {
+      const access_token = localStorage.getItem('access_token')
+      axios({
+        method: 'PATCH',
+        url: `/cart/${payload.id}`,
+        headers: {
+          access_token
+        },
+        data: {
+          qty: payload.qty
+        }
+      })
+        .then(({ data }) => {
+          context.dispatch('fetchCart')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   modules: {

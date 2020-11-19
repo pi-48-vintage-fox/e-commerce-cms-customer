@@ -11,11 +11,11 @@
         <p class="card-text">RP. {{item.Product.price * item.qty}}</p>
         <div class="row justify-content-between">
             <div class="col">
-                <button class="btn btn-success">+</button>
+                <button v-show="appear" class="btn btn-success" @click="plusItem(item.Product.id, item.qty, item)">+</button>
                 <span class="card-text" style="margin-left:10px; margin-right:10px">{{item.qty}}</span>
-                <button class="btn btn-success">-</button>
+                <button v-show="appear2" class="btn btn-success" @click="minusItem(item.Product.id, item.qty, item)">-</button>
                 <div class="col">
-                    <button class="btn btn-danger" style="margin-top:10px">remove</button>
+                    <button class="btn btn-danger" style="margin-top:10px" @click="removeItem(item.Product.id)">remove</button>
                 </div>
             </div>
         </div>
@@ -30,7 +30,47 @@
 <script>
 export default {
   name: 'CartList',
-  props: ['carts']
+  props: ['carts'],
+  data () {
+    return {
+      appear: true,
+      appear2: true
+    }
+  },
+  methods: {
+    removeItem (productId) {
+      const payload = {
+        id: productId
+      }
+      this.$store.dispatch('removeItem', payload)
+    },
+    plusItem (productId, qty, item) {
+      if (item.qty >= item.Product.stock) {
+        this.appear = false
+      } else {
+        this.appear = true
+        const payload = {
+          id: productId,
+          qty: qty + 1
+        }
+        console.log(payload)
+        this.$store.dispatch('updateItem', payload)
+      }
+    },
+    minusItem (productId, qty, item) {
+      if (item.qty <= 0) {
+        this.appear2 = false
+      } else {
+        this.appear = true
+        const payload = {
+          id: productId,
+          qty: qty - 1
+        }
+        console.log(payload)
+        this.$store.dispatch('updateItem', payload)
+      }
+    }
+  }
 }
 </script>
 

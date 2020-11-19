@@ -16,7 +16,7 @@
                 Stock {{ item.stock }}
               </li>
               <li class="list-group-item">
-                <button class="btn btn-outline-danger">
+                <button class="btn btn-outline-danger" @click="addCart(item.id)">
                   Add To Cart
                 </button>
               </li>
@@ -33,6 +33,13 @@ export default {
   name: 'productList',
   props: ['products'],
   methods: {
+    addCart (productId) {
+      const payload = {
+        id: productId,
+        qty: 1
+      }
+      this.$store.dispatch('addCart', payload)
+    }
   }
 
 }

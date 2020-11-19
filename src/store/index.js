@@ -118,6 +118,8 @@ export default new Vuex.Store({
             showConfirmButton: false,
             timer: 2000
           })
+          console.log(response)
+          router.push({ path: '/login' })
         })
         .catch(err => {
           Swal.fire(

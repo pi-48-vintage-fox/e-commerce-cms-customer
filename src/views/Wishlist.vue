@@ -55,9 +55,6 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
-import { succesToast, failedToast } from "../helpers/Swal.js";
-
 export default {
   name: "Cart",
   data() {
@@ -98,20 +95,7 @@ export default {
     subtract(id, quantity) {
       // console.log(quantity, ",,,,");
       if (quantity <= 1) {
-        return Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.$store.dispatch("deleteCart", id);
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
-          }
-        });
+        return this.$store.dispatch("deleteCart", id);
       }
       let stock = +quantity - 1;
       let cart = this.orders.find((e) => e.id == id);
@@ -122,15 +106,13 @@ export default {
         totalPrice,
       };
       this.$store.dispatch("editCarts", payload);
-      succesToast("Successfully decrease");
     },
     plus(id, quantity, ProductId, sizes) {
       // console.log(this.products, 'ini')
       let checkProduct = this.products.find((e) => e.id == ProductId);
       console.log(checkProduct, "<<<<<");
       if (checkProduct[`${sizes}`] <= quantity) {
-        // return console.log("gagal");
-        return failedToast('Maximum quantity')
+        return console.log('gagal')
       }
       let stock = +quantity + 1;
       let cart = this.orders.find((e) => e.id == id);
@@ -140,26 +122,11 @@ export default {
         quantity: stock,
         totalPrice,
       };
-      // console.log(payload);
+      
       this.$store.dispatch("editCarts", payload);
-      succesToast("Successfully increase");
     },
     deleteCart(id) {
-      return Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.$store.dispatch("deleteCart", id);
-          Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        }
-      });
-      // this.$store.dispatch("deleteCart", id);
+      this.$store.dispatch("deleteCart", id);
     },
   },
   created() {

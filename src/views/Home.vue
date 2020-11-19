@@ -16,7 +16,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Home",
+  created() {
+    if (localStorage.access_token) {
+      this.$store.commit("STATUS_LOG", true);
+    } else {
+      this.$store.commit("STATUS_LOG", false);
+    }
+  },
+};
 </script>
 
 <style App></style>

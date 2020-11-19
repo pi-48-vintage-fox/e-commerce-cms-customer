@@ -20,7 +20,7 @@
           >
         </li>
         <li class="nav-item text-white">
-          <router-link to="/login" v-if="!$store.state.token" class="nav-link text-white">Login</router-link>
+          <router-link to="/login" v-if="!$store.state.token" class="nav-link text-white" >Login</router-link>
         </li>
         <li class="nav-item text-white">
           <a class="nav-link text-white" @click.prevent="showYourCart" v-if="$store.state.token" >Show Carts</a>

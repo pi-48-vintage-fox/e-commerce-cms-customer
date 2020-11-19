@@ -4,7 +4,7 @@
       style="display:flex; flex-direction:column; justify-content:center;align-items:center"
     >
       <img
-        src="https://static.dribbble.com/users/142857/screenshots/1948344/logo-dark_1x.png"
+        src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Genesis_Logo_-_Transparent.png"
         alt=""
         class="logo"
       />

@@ -2,8 +2,8 @@
   <!-- <div class="summary card"> -->
   <div class="summary">
     <p>Total Harga :</p>
-    <p class="text-primary" style="font-weight: 500">
-      {{ toCurrencyFormat(totalPrice) }}
+    <p class="text-primary h2" style="font-weight: 500">
+      {{ toCurrencyFormat(cart.grandTotalPrice) }}
     </p>
     <button
       class="btn btn-info btn-block"
@@ -20,16 +20,11 @@ export default {
   name: 'CartSummary',
   // props: ['totalPrice'],
   computed: {
-    totalPrice() {
-      return this.$store.state.totalPrice
-    },
     cart() {
       return this.$store.state.cart
     },
   },
-  // created() {
-  //   this.$store.dispatch('getTotalPrice')
-  // },
+
   methods: {
     checkout(payload) {
       this.$store.dispatch('checkout', payload)

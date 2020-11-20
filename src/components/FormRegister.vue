@@ -163,7 +163,9 @@ export default {
       return true
     },
     renderGoogleButton() {
+      // eslint-disable-next-line no-undef
       if (!gapi) return
+      // eslint-disable-next-line no-undef
       gapi.signin2.render('gSignIn', {
         onsuccess: user => {
           this.onSignIn(user)

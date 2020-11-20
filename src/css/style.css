@@ -99,7 +99,7 @@ body {
 
 .card:hover {
   box-shadow: 2px 12px 30px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
+  /* transform: translateY(-5px); */
 }
 
 .card-title {
@@ -114,12 +114,16 @@ body {
   vertical-align: top;
 }
 
+.click {
+  cursor: pointer;
+}
+
 .cartitem-list-item .card {
   height: 180px;
 }
 
 .cartitem-list-item .card:hover {
-  transform: translateY(0);
+  /* transform: translateY(0); */
 }
 
 .cartitem-list-item .card-img {
@@ -149,4 +153,18 @@ body {
 
 .VueCarousel {
   text-align: center;
+}
+
+.category-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.category-text {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.selected {
+  color: var(--accent2);
 }

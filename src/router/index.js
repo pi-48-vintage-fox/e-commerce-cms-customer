@@ -36,6 +36,22 @@ const router = new VueRouter({
   routes,
 })
 
+// To silence NavigationDuplicated error
+function patchRouterMethod(router, methodName) {
+  router['old' + methodName] = router[methodName]
+  router[methodName] = async function(location) {
+    return router['old' + methodName](location).catch(error => {
+      if (error.name === 'NavigationDuplicated') {
+        return this.currentRoute
+      }
+      throw error
+    })
+  }
+}
+
+patchRouterMethod(router, 'push')
+patchRouterMethod(router, 'replace')
+
 router.beforeEach((to, from, next) => {
   if (to.path === '/cart' && !localStorage.getItem('access_token'))
     next('/login')

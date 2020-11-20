@@ -1,8 +1,8 @@
 <template>
   <div>
     <Banner />
-    <!-- <ProductCategories /> -->
-    <ProductList />
+    <ProductCategories />
+    <ProductList class="mt-3" />
   </div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
     ProductList,
     ProductCategories,
   },
+  methods: {
+    fetchCart() {
+      this.$store.dispatch('fetchCart')
+    },
+  },
   created() {
     // this.$store.dispatch('fetchProducts')
     // this.$store.dispatch('fetchProductCategories')
@@ -25,6 +30,7 @@ export default {
     if (localStorage.getItem('access_token')) {
       this.$store.dispatch('fetchUserDetails')
       this.$store.dispatch('fetchCart')
+      // this.$store.dispatch('fetchCartItems')
     }
   },
 }

@@ -24,8 +24,7 @@
               <p>Stock: {{ cartitem.Product.stock }}</p>
               <div class="d-flex flex-row">
                 <i
-                  style="cursor:pointer"
-                  class="material-icons mr-3 btn-delete"
+                  class="material-icons mr-3 btn-delete click"
                   @click="
                     deleteCartItem({
                       CartProductId: cartitem.id,
@@ -40,8 +39,7 @@
                 >
                 <i
                   v-else
-                  class="material-icons green mr-2"
-                  style="cursor:pointer"
+                  class="material-icons green mr-2 click"
                   @click="
                     updateQuantity({
                       CartId: cart.id,
@@ -60,8 +58,7 @@
                 >
                 <i
                   v-else
-                  class="material-icons green"
-                  style="cursor:pointer"
+                  class="material-icons green click"
                   @click="
                     updateQuantity({
                       CartId: cart.id,

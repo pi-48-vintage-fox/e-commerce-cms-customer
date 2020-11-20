@@ -7,23 +7,35 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {},
+    user: { details: {}, isLoggedIn: false, cart: {} },
     products: [],
     banners: [],
-    cart: {},
     productCategories: [],
-    totalPrice: 0,
     isSigningIn: false,
     isFetchingProducts: false,
     isFetchingBanners: false,
-    isLoggedIn: false,
+    isAddingCartItem: false,
+  },
+  getters: {
+    isLoggedIn: state => {
+      return state.user.isLoggedIn
+    },
+    cart: state => {
+      return state.user.cart
+    },
+    userDetails: state => {
+      return state.user.details
+    },
   },
   mutations: {
-    SET_IS_LOGGED_IN(state, payload) {
-      state.isLoggedIn = payload
-    },
     SET_USER(state, payload) {
-      state.user = payload
+      state.user.details = payload
+    },
+    SET_IS_LOGGED_IN(state, payload) {
+      state.user.isLoggedIn = payload
+    },
+    SET_CART(state, payload) {
+      state.user.cart = payload
     },
     SET_PRODUCTS(state, payload) {
       state.products = payload
@@ -46,18 +58,11 @@ export default new Vuex.Store({
     SET_IS_FETCHING_BANNERS(state, payload) {
       state.isFetchingBanners = payload
     },
-    SET_CART(state, payload) {
-      state.cart = payload
-    },
-    SET_TOTAL_PRICE(state, payload) {
-      state.totalPrice = payload
+    SET_IS_ADDING_CARTITEM(state, payload) {
+      state.isAddingCartItem = payload
     },
   },
-  getters: {
-    isLoggedIn: state => {
-      return state.isLoggedIn
-    },
-  },
+
   actions: {
     checkout({ commit, dispatch, state }, payload) {
       // kurangi stock
@@ -94,28 +99,27 @@ export default new Vuex.Store({
           console.log(err.response.data, '<<<<< error updating cart status')
         })
     },
-    getTotalPrice({ commit, state }) {
-      let orders
-      if (state.cart.CartProducts) {
-        orders = state.cart.CartProducts.map(cartitem => {
-          return {
-            totalItemPrice: +cartitem.quantity * +cartitem.Product.price,
-          }
+
+    fetchCartItems({ commit, state }) {
+      console.log('fetch cart items')
+      console.log('cartId:', state.cart.id)
+      axios({
+        method: 'GET',
+        url: '/cartitems',
+        data: { CartId: state.cart.id, test: 'test' },
+        headers: {
+          access_token: localStorage.getItem('access_token'),
+        },
+      })
+        .then(({ data }) => {
+          console.log(data, '<<<<< current cart items')
+          commit('SET_CART_ITEMS', data)
         })
-        console.log({ orders })
-
-        let totalPrice = 0
-
-        orders.forEach(item => (totalPrice += item.totalItemPrice))
-
-        // let totalPrice = state.cart.CartProducts.reduce((acc, item) => {
-        //   return acc + item.quantity * item.Product.price
-        // })
-        console.log({ totalPrice })
-        commit('SET_TOTAL_PRICE', totalPrice)
-      }
+        .catch(err => {
+          console.log(err.response.data, '<<<<< error fetching cartitems')
+        })
     },
-    fetchCart({ commit, dispatch }) {
+    fetchCart({ commit }) {
       console.log('fetch cart')
       axios({
         method: 'GET',
@@ -127,14 +131,13 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data, '<<<<< current cart')
           commit('SET_CART', data)
-          dispatch('getTotalPrice')
         })
         .catch(err => {
           console.log(err.response.data, '<<<<< error fetching cart')
         })
     },
     updateQuantity({ dispatch }, payload) {
-      console.log('update quantity')
+      console.log('update quantity', payload)
       axios({
         method: 'PATCH',
         url: '/cartitems',
@@ -146,10 +149,12 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data, '<<< result update quantity')
           dispatch('fetchCart')
+          // dispatch('fetchCartItems')
         })
         .catch(err => {
           console.log(err.response.data, '>>>> error update quantity')
           dispatch('fetchCart')
+          // dispatch('fetchCartItems')
         })
     },
     addProductToCart({ dispatch }, payload) {
@@ -172,15 +177,16 @@ export default new Vuex.Store({
         })
     },
     signOut({ commit }) {
+      // eslint-disable-next-line no-undef
       if (gapi.auth2) {
+        // eslint-disable-next-line no-undef
         const auth2 = gapi.auth2.getAuthInstance()
         auth2.signOut().then(() => {
           console.log('User signed out.')
           localStorage.clear()
           commit('SET_USER', '')
-          commit('SET_CART', '')
-          commit('SET_TOTAL_PRICE', '')
-          commit('SET_IS_LOGGED_IN', false)
+          // commit('SET_CART', '')
+          // commit('SET_IS_LOGGED_IN', false)
           router.push('/')
         })
       } else {
@@ -188,7 +194,6 @@ export default new Vuex.Store({
         localStorage.clear()
         commit('SET_USER', '')
         commit('SET_CART', '')
-        commit('SET_TOTAL_PRICE', '')
         commit('SET_IS_LOGGED_IN', false)
         router.push('/')
       }
@@ -324,7 +329,7 @@ export default new Vuex.Store({
           commit('SET_IS_FETCHING_BANNERS', false)
         })
     },
-    fetchProductCategories({ commit }) {
+    fetchProductCategories({ commit }, payload) {
       console.log('fetching product categories')
       commit('SET_IS_FETCHING_PRODUCT_CATEGORIES', true)
 
@@ -336,6 +341,8 @@ export default new Vuex.Store({
           console.log(data, '<<< product categories')
           commit('SET_IS_FETCHING_PRODUCT_CATEGORIES', false)
 
+          // Remove Unassigned category
+          // data = data.filter(category => category.name !== 'Unassigned')
           commit('SET_PRODUCT_CATEGORIES', data)
         })
         .catch(err => {
@@ -346,13 +353,16 @@ export default new Vuex.Store({
           commit('SET_IS_FETCHING_PRODUCT_CATEGORIES', false)
         })
     },
-    fetchProducts({ commit }) {
-      console.log('fetching products')
+    fetchProducts({ commit }, payload) {
+      console.log('fetching products', payload)
       commit('SET_IS_FETCHING_PRODUCTS', true)
 
       axios({
         method: 'GET',
-        url: '/products',
+        url:
+          payload && payload.category > -1
+            ? `/products?category=${payload.category}`
+            : '/products',
       })
         .then(({ data }) => {
           console.log(data, '<<< products')

@@ -6,16 +6,22 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    productPublic: ''
+    productPublic: '',
+    carts: ''
   },
   mutations: {
-    FETCH_PRODUCT_PUBLIC (state, data) {
+    FETCH_PRODUCT_PUBLIC(state, data) {
       state.productPublic = data
+    },
+    FETCH_CART(state, data) {
+      state.carts = data
     }
   },
   actions: {
 
-    login ({ commit }, payload) {
+    login({ commit }, payload) {
+      console.log(payload);
+      console.log('masuk data store index')
       return axios({
         method: 'POST',
         url: '/login',
@@ -24,12 +30,12 @@ export default new Vuex.Store({
           password: payload.password
         }
       })
-        .then(data => {
+        .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
         })
     },
 
-    register ({ commit }, payload) {
+    register({ commit }, payload) {
       return axios({
         method: 'POST',
         url: '/register',
@@ -41,7 +47,7 @@ export default new Vuex.Store({
       })
     },
 
-    fetchProductPublic ({ commit }) {
+    fetchProductPublic({ commit }) {
       axios({
         method: 'GET',
         url: '/productPublic'
@@ -52,6 +58,60 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+
+    fetchCart({ commit }) {
+      axios({
+        method: 'GET',
+        url: '/cart',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          commit('FETCH_CART', data)
+        })
+        .catch((err) => {
+          console.log(err.response);
+        })
+    },
+
+    addToCart({ commit }, payload) {
+      console.log(payload);
+      return axios({
+        method: 'POST',
+        url: `/cart/${payload.id}`,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          quantity: payload.quantity
+        }
+      })
+    },
+
+    updateCart({ commit }, payload) {
+      return axios({
+        method: 'PUT',
+        url: `/cart/${payload.id}`,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          quantity: payload.quantity
+        }
+      })
+    },
+
+    deleteProduct({ commit }, id) {
+      console.log(id);
+      return axios({
+        method: 'DELETE',
+        url: `/cart/${id}`,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
     }
   },
   modules: {

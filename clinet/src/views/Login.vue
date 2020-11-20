@@ -27,13 +27,14 @@
             />
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
+          <router-link to="/register">
           <button
             type="button"
-            @click.prevent="toRegister"
             class="btn btn-success"
           >
             Register
           </button>
+          </router-link>
         </form>
       </div>
     </div>
@@ -41,6 +42,30 @@
 </template>
 <script>
 export default {
+  name: "LoginPage",
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
 
+  methods: {
+    login() {
+      console.log('masuk data login index')
+      const payload = {
+        email: this.email,
+        password: this.email
+      }
+      console.log(payload);
+      this.$store.dispatch('login', payload)
+      .then(data => {
+        this.$router.push({ path: '/'})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  },
 }
 </script>

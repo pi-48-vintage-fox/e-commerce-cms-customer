@@ -45,12 +45,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   name: 'App',
   components: {},
   computed: {
-    ...mapState(['isLoggedIn', 'cart']),
+    cart() {
+      return this.$store.state.user.cart
+    },
+    isLoggedIn() {
+      return this.$store.state.user.isLoggedIn
+    },
   },
   created() {
     this.$store.dispatch('fetchProducts')

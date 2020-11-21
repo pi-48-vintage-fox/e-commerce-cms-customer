@@ -1,8 +1,8 @@
 <template>
   <!-- <div class="summary card"> -->
   <div class="summary">
-    <p>Total Harga :</p>
-    <p class="text-primary h2" style="font-weight: 500">
+    <p class="font-weight-bold">Total Harga :</p>
+    <p class="text-primary h4" style="font-weight: 500">
       {{ toCurrencyFormat(cart.grandTotalPrice) }}
     </p>
     <button
@@ -21,7 +21,7 @@ export default {
   // props: ['totalPrice'],
   computed: {
     cart() {
-      return this.$store.state.cart
+      return this.$store.state.user.cart
     },
   },
 

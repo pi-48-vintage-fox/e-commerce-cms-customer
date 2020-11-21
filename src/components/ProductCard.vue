@@ -7,8 +7,30 @@
         <p class="card-text">
           {{ toCurrencyFormat(product.price) }}
         </p>
+        <button v-if="product.stock === 0" class="btn btn-secondary" disabled>
+          Out of stock
+        </button>
         <button
-          v-if="!isInCart(product.id)"
+          v-else-if="isInCart(product.id)"
+          class="btn btn-secondary"
+          disabled
+        >
+          Added to cart
+        </button>
+        <button
+          v-else-if="isAddingCartItem == product.id"
+          class="btn primary"
+          disabled
+        >
+          Add to cart
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+        </button>
+        <button
+          v-else-if="!isInCart(product.id)"
           class="btn btn-primary"
           @click="
             addProductToCart({
@@ -19,9 +41,6 @@
           "
         >
           Add to cart
-        </button>
-        <button v-else class="btn btn-secondary" disabled>
-          Added to cart
         </button>
       </div>
     </div>
@@ -63,7 +82,10 @@ export default {
   },
   computed: {
     cart() {
-      return this.$store.getters.cart
+      return this.$store.state.user.cart
+    },
+    isAddingCartItem() {
+      return this.$store.state.isAddingCartItem
     },
   },
 }

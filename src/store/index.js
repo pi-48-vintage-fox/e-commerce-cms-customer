@@ -58,7 +58,7 @@ export default new Vuex.Store({
     SET_IS_FETCHING_BANNERS(state, payload) {
       state.isFetchingBanners = payload
     },
-    SET_IS_ADDING_CARTITEM(state, payload) {
+    SET_IS_ADDING_CART_ITEM(state, payload) {
       state.isAddingCartItem = payload
     },
   },
@@ -114,6 +114,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data, '<<<<< current cart items')
           commit('SET_CART_ITEMS', data)
+          commit('SET_ADDING_CART_ITEM', null)
         })
         .catch(err => {
           console.log(err.response.data, '<<<<< error fetching cartitems')
@@ -157,7 +158,8 @@ export default new Vuex.Store({
           // dispatch('fetchCartItems')
         })
     },
-    addProductToCart({ dispatch }, payload) {
+    addProductToCart({ dispatch, commit }, payload) {
+      commit('SET_IS_ADDING_CART_ITEM', payload.ProductId)
       console.log('add product to cart')
       axios({
         method: 'POST',
@@ -172,6 +174,8 @@ export default new Vuex.Store({
           dispatch('fetchCart')
         })
         .catch(err => {
+          commit('SET_IS_ADDING_CART_ITEM', null)
+
           console.log(err.response.data, '>>>> error add product to cart')
           dispatch('fetchCart')
         })

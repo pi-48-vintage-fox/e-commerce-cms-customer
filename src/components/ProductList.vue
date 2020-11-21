@@ -1,7 +1,14 @@
 <template>
   <div>
     <div class="container">
-      <div class="row">
+      <div
+        v-if="isFetchingProducts"
+        class="row justify-content-center align-items center"
+        style="height:500px"
+      >
+        <h2>Loading...</h2>
+      </div>
+      <div v-else class="row justify-content-center align-items-center">
         <ProductCard
           v-for="product in products"
           :key="product.id"
@@ -22,6 +29,9 @@ export default {
   computed: {
     products() {
       return this.$store.state.products
+    },
+    isFetchingProducts() {
+      return this.$store.state.isFetchingProducts
     },
   },
 }

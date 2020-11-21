@@ -46,8 +46,8 @@ export default {
   methods: {
     handleSelectCategory(i) {
       let id = i === 0 ? 0 : i + 1
-      this.selectedCategory = id
       this.$store.dispatch('fetchProducts', { category: id })
+      this.selectedCategory = id
       document.getElementsByClassName('select-highlight')[0].style.left =
         -400 + i * 200 + 'px'
     },

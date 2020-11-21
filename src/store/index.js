@@ -183,10 +183,15 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           console.log(data, '<<< result add product to cart')
+          Vue.$vToastify.success('Product added to cart')
+
           dispatch('fetchCart')
         })
         .catch(err => {
           commit('SET_IS_ADDING_CART_ITEM', null)
+          Vue.$vToastify.error(
+            `Failed adding the product to cart. ${err.response.data}`
+          )
 
           console.log(err.response.data, '>>>> error add product to cart')
           dispatch('fetchCart')
@@ -245,34 +250,14 @@ export default new Vuex.Store({
           commit('SET_IS_LOGGED_IN', false)
         })
     },
-    submitLoginForm({ commit }, payload) {
+    submitLoginForm(_, payload) {
       console.log({ payload })
 
-      axios({
+      return axios({
         method: 'POST',
         url: '/login',
         data: payload,
       })
-        .then(({ data }) => {
-          console.log('berhasil login', data)
-          if (data.access_token) {
-            localStorage.setItem('access_token', data.access_token)
-          }
-
-          commit('SET_USER', data)
-          commit('SET_IS_LOGGED_IN', true)
-
-          router.push('/')
-        })
-        .catch(err => {
-          console.log(err.response.data)
-          commit('SET_IS_LOGGED_IN', false)
-
-          // this.$emit('showMessage', {
-          //   msg: err,
-          //   type: 'error',
-          // })
-        })
     },
 
     submitRegistration(_, payload) {
@@ -280,28 +265,11 @@ export default new Vuex.Store({
 
       console.log({ payload })
 
-      axios({
+      return axios({
         method: 'POST',
         url: '/register',
         data: payload,
       })
-        .then(({ data }) => {
-          console.log('berhasil register', data)
-
-          // this.$emit('showMessage', {
-          //   msg: 'Account registration successful',
-          //   type: 'success',
-          // })
-          router.push('/login')
-        })
-        .catch(err => {
-          console.log(err.response.data)
-
-          // this.$emit('showMessage', {
-          //   msg: err,
-          //   type: 'error',
-          // })
-        })
     },
 
     fetchUserDetails({ commit }) {

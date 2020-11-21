@@ -1,5 +1,12 @@
 <template>
-  <carousel :per-page="1" @slideclick="handleSlideClick">
+  <carousel
+    :per-page="1"
+    @slideclick="handleSlideClick"
+    :autoplay="true"
+    :loop="true"
+    :paginationColor="`#aaa`"
+    :paginationPosition="`bottom-overlay`"
+  >
     <slide v-for="banner in banners" :key="banner.id">
       <img :src="banner.imageUrl" />
     </slide>

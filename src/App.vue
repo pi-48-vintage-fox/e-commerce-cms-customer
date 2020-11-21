@@ -15,7 +15,7 @@
             v-if="
               isLoggedIn && cart.CartProducts && cart.CartProducts.length > 0
             "
-            class="badge badge-pill badge-success"
+            class="badge badge-cart badge-pill badge-success"
             >{{ cart.CartProducts.length }}</span
           >
         </router-link>

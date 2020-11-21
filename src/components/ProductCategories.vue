@@ -1,15 +1,6 @@
 <template>
   <div class="container">
-    <div
-      v-if="isFetchingProductCategories"
-      class="row justify-content-center align-items-center mb-5 mt-5"
-      style="height:132px"
-    >
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-    <div v-else class="text-center mb-5 mt-5">
+    <div class="text-center mb-5 mt-5">
       <h3 class="category-title mb-4">Categories</h3>
       <div class="category-items row justify-content-center">
         <div

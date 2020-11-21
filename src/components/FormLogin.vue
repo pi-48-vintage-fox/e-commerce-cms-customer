@@ -1,18 +1,15 @@
 <template>
   <div id="auth-content">
     <div id="auth-title">Login</div>
-    <div
-      v-if="errorBanner"
-      class="notification notification-banner notification-error"
-    >
-      {{ errorBanner }}
-    </div>
+
     <div id="auth-oauth">
       <div id="gSignIn" class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
     <div id="auth-form">
       <form id="loginForm" @submit.prevent="submitLoginForm">
-        <!-- <div class="form-group"> -->
+        <div v-if="errorBanner" class="alert alert-danger">
+          {{ errorBanner }}
+        </div>
         <label for="email">Email</label>
         <input
           type="text"
@@ -22,19 +19,14 @@
           placeholder="Insert your email"
           autofocus
         />
-        <!-- <div
-          v-if="errors.user.length > 0"
-          class="notification notification-error"
-        >
+        <small v-if="errors.email.length > 0" class="text-danger">
           <ul>
-            <li v-for="(error, i) in errors.user" :key="i">
-              {{ error }}
+            <li v-for="(error, i) in errors.email" :key="i">
+              <p class="message">{{ error }}</p>
             </li>
           </ul>
-        </div> -->
-        <!-- </div> -->
+        </small>
 
-        <!-- <div class="form-group"> -->
         <label for="password">Password</label>
         <input
           type="password"
@@ -43,32 +35,22 @@
           v-model="password"
           placeholder="Insert your password"
         />
-        <!-- <div
-          v-if="errors.password.length > 0"
-          class="notification notification-error"
-        >
+        <small v-if="errors.password.length > 0" class="text-danger">
           <ul>
             <li v-for="(error, i) in errors.password" :key="i">
-              {{ error }}
+              <p class="message">{{ error }}</p>
             </li>
           </ul>
-        </div> -->
-        <!-- </div> -->
+        </small>
 
-        <!-- <div class="actions"> -->
         <button class="btn btn-primary mt-3 mb-2">
           Log In
         </button>
-        <!-- </div> -->
         <p>
           I want to
-          <a
-            id="link-register"
-            @click="$router.push('/register')"
-            href="javascript:void(0)"
-          >
+          <router-link to="/register" id="link-register">
             create an account
-          </a>
+          </router-link>
         </p>
       </form>
     </div>
@@ -100,17 +82,37 @@ export default {
           this.errors[key] = []
         }
 
-        this.$store.dispatch('submitLoginForm', {
-          email: this.email,
-          password: this.password,
-        })
-        this.email = null
-        this.password = null
-        this.errors = {
-          email: [],
-          password: [],
-        }
-        this.errorBanner = null
+        this.$store
+          .dispatch('submitLoginForm', {
+            email: this.email,
+            password: this.password,
+          })
+          .then(({ data }) => {
+            console.log('berhasil login', data)
+            this.errors = {
+              email: [],
+              password: [],
+            }
+            this.errorBanner = null
+            if (data.access_token) {
+              localStorage.setItem('access_token', data.access_token)
+            }
+
+            this.$store.commit('SET_USER', data)
+            this.$store.commit('SET_IS_LOGGED_IN', true)
+
+            this.$router.push('/')
+          })
+          .catch(err => {
+            console.log(err.response.data)
+            this.$store.commit('SET_IS_LOGGED_IN', false)
+
+            this.errorBanner = err.response.data.msg
+          })
+          .finally(() => {
+            this.email = null
+            this.password = null
+          })
       }
     },
     validateLogin() {

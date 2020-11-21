@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" class="sticky-top">
       <router-link to="/">
         <img
           src="./assets/logo_gardenbyte_horizontal.png"
@@ -89,6 +89,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  background-color: var(--bg-color);
 }
 
 #nav a {

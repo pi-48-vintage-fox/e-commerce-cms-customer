@@ -12,8 +12,11 @@ export default new Vuex.Store({
     banners: [],
     productCategories: [],
     isSigningIn: false,
-    isFetchingProducts: false,
+    isFetchingUserDetails: false,
     isFetchingBanners: false,
+    isFetchingProductCategories: false,
+    isFetchingProducts: false,
+    isFetchingCart: false,
     isAddingCartItem: false,
   },
   getters: {
@@ -58,8 +61,14 @@ export default new Vuex.Store({
     SET_IS_FETCHING_BANNERS(state, payload) {
       state.isFetchingBanners = payload
     },
+    SET_IS_FETCHING_CART(state, payload) {
+      state.isFetchingCart = payload
+    },
     SET_IS_ADDING_CART_ITEM(state, payload) {
       state.isAddingCartItem = payload
+    },
+    SET_IS_FETCHING_USER_DETAILS(state, payload) {
+      state.isFetchingUserDetails = payload
     },
   },
 
@@ -67,7 +76,7 @@ export default new Vuex.Store({
     checkout({ commit, dispatch, state }, payload) {
       // kurangi stock
 
-      let orders = state.cart.CartProducts.map(cartitem => {
+      let orders = state.user.cart.CartProducts.map(cartitem => {
         return {
           ProductId: cartitem.ProductId,
           quantity: cartitem.quantity,
@@ -102,11 +111,11 @@ export default new Vuex.Store({
 
     fetchCartItems({ commit, state }) {
       console.log('fetch cart items')
-      console.log('cartId:', state.cart.id)
+      console.log('cartId:', state.user.cart.id)
       axios({
         method: 'GET',
         url: '/cartitems',
-        data: { CartId: state.cart.id, test: 'test' },
+        data: { CartId: state.user.cart.id, test: 'test' },
         headers: {
           access_token: localStorage.getItem('access_token'),
         },
@@ -121,6 +130,7 @@ export default new Vuex.Store({
         })
     },
     fetchCart({ commit }) {
+      commit('SET_IS_FETCHING_CART', true)
       console.log('fetch cart')
       axios({
         method: 'GET',
@@ -132,9 +142,11 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data, '<<<<< current cart')
           commit('SET_CART', data)
+          commit('SET_IS_FETCHING_CART', false)
         })
         .catch(err => {
           console.log(err.response.data, '<<<<< error fetching cart')
+          commit('SET_IS_FETCHING_CART', false)
         })
     },
     updateQuantity({ dispatch }, payload) {
@@ -293,6 +305,7 @@ export default new Vuex.Store({
     },
 
     fetchUserDetails({ commit }) {
+      commit('SET_IS_FETCHING_USER_DETAILS', true)
       console.log('fetching user details')
 
       axios({
@@ -306,9 +319,12 @@ export default new Vuex.Store({
           console.log(data, '<<< user details')
           commit('SET_USER', data)
           commit('SET_IS_LOGGED_IN', true)
+          commit('SET_IS_FETCHING_USER_DETAILS', false)
         })
         .catch(err => {
           console.log(err.response.data, '<<< error fetching user')
+          commit('SET_IS_FETCHING_USER_DETAILS', false)
+
           if (err.response.data.status === 401) {
             localStorage.removeItem('access_token')
             router.push('/')

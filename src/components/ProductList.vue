@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container" style="min-height: 400px">
       <div
         v-if="isFetchingProducts"
-        class="row justify-content-center align-items center"
-        style="height:500px"
+        class="row justify-content-center align-items-center"
+        style="height:300px"
       >
-        <h2>Loading...</h2>
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
       <div v-else class="row justify-content-center align-items-center">
         <ProductCard

@@ -1,5 +1,16 @@
 <template>
-  <div class="container d-flex flex-row justify-content-center">
+  <div
+    class="container cartitem-list-container d-flex flex-row justify-content-center"
+  >
+    <!-- <div
+      v-if="isFetchingCart"
+      class="row justify-content-center align-items-center"
+      style="height:300px"
+    >
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div> -->
     <div class="row justify-content-center">
       <div v-if="cart.CartProducts && cart.CartProducts.length === 0">
         <h1>Your cart is empty</h1>
@@ -15,7 +26,7 @@
           />
         </div>
         <div class="col-3">
-          <CartSummary />
+          <CartSummary v-if="grandTotalPrice" />
         </div>
       </div>
     </div>
@@ -37,6 +48,12 @@ export default {
   computed: {
     cart() {
       return this.$store.state.user.cart
+    },
+    isFetchingCart() {
+      return this.$store.state.isFetchingCart
+    },
+    grandTotalPrice() {
+      return this.$store.state.user.cart.grandTotalPrice
     },
   },
 }

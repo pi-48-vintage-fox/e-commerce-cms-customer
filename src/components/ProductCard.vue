@@ -1,9 +1,9 @@
 <template>
-  <div class="col-3 mb-4">
+  <div class="col-2 mb-4">
     <div class="card">
       <img :src="product.imageUrl" class="card-img-top" :alt="product.name" />
       <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
+        <h5 class="card-title text-truncate">{{ product.name }}</h5>
         <p class="card-text">
           {{ toCurrencyFormat(product.price) }}
         </p>
@@ -19,10 +19,10 @@
         </button>
         <button
           v-else-if="isAddingCartItem == product.id"
-          class="btn primary"
+          class="btn btn-primary"
           disabled
         >
-          Add to cart
+          Adding to cart
           <span
             class="spinner-border spinner-border-sm"
             role="status"

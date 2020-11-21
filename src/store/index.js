@@ -353,7 +353,7 @@ export default new Vuex.Store({
           commit('SET_IS_FETCHING_PRODUCT_CATEGORIES', false)
         })
     },
-    fetchProducts({ commit }, payload) {
+    fetchProducts({ commit }, payload = 0) {
       console.log('fetching products', payload)
       commit('SET_IS_FETCHING_PRODUCTS', true)
 

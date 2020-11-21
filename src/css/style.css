@@ -160,6 +160,10 @@ body {
   font-weight: 700;
 }
 
+.category-item {
+  width: 200px;
+}
+
 .category-text {
   font-size: 1.1rem;
   text-transform: uppercase;
@@ -167,4 +171,16 @@ body {
 
 .selected {
   color: var(--accent2);
+  /* border-bottom: 3px solid var(--accent2); */
+  /* box-shadow: 0 8px 6px -6px var(--accent2); */
+}
+
+.select-highlight {
+  position: relative;
+  bottom: 0;
+  left: -400px;
+  height: 4px;
+  width: 200px;
+  background-color: var(--accent2);
+  transition: 0.1s left ease-out;
 }

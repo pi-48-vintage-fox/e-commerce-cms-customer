@@ -50,40 +50,39 @@ p {
   font-size: 0.85rem;
 }
 
-/* .form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-}
-
-.form-group--alert, .form-group--error {
+.form-group--alert,
+.form-group--error {
   animation-name: shakeError;
   animation-fill-mode: forwards;
-  animation-duration: .6s;
+  animation-duration: 0.6s;
   animation-timing-function: ease-in-out;
 }
 
 .form-group--alert + .form-group__message {
   display: block;
-  color: #f5b06c; }
+  color: #f5b06c;
+}
 
 @keyframes shakeError {
   0% {
-    transform: translateX(0); }
-  15% {
-    transform: translateX(0.375rem); }
-  30% {
-    transform: translateX(-0.375rem); }
-  45% {
-    transform: translateX(0.375rem); }
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(0.15rem);
+  }
+  40% {
+    transform: translateX(-0.15rem);
+  }
   60% {
-    transform: translateX(-0.375rem); }
-  75% {
-    transform: translateX(0.375rem); }
-  90% {
-    transform: translateX(-0.375rem); }
+    transform: translateX(0.15rem);
+  }
+  80% {
+    transform: translateX(-0.15rem);
+  }
   100% {
-    transform: translateX(0); } } */
+    transform: translateX(0);
+  }
+}
 /*
  * ─── MATERIAL DESIGN ICONS ──────────────────────────────────────────────────────
  */
@@ -146,7 +145,8 @@ p {
 }
 
 .card:hover {
-  box-shadow: 2px 12px 30px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 20px 40px rgba(127, 221, 123, 0.6); */
+  box-shadow: 2px 12px 30px rgba(0, 0, 0, 0.15);
   /* transform: translateY(-5px); */
 }
 

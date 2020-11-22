@@ -31,7 +31,13 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    CLEAR_USER(state) {
+      state.user = { details: {}, isLoggedIn: false, cart: {} }
+    },
     SET_USER(state, payload) {
+      state.user = payload
+    },
+    SET_USER_DETAILS(state, payload) {
       state.user.details = payload
     },
     SET_IS_LOGGED_IN(state, payload) {
@@ -205,17 +211,13 @@ export default new Vuex.Store({
         auth2.signOut().then(() => {
           console.log('User signed out.')
           localStorage.clear()
-          commit('SET_USER', '')
-          // commit('SET_CART', '')
-          // commit('SET_IS_LOGGED_IN', false)
+          commit('CLEAR_USER')
           router.push('/')
         })
       } else {
         console.log('User signed out.')
         localStorage.clear()
-        commit('SET_USER', '')
-        commit('SET_CART', '')
-        commit('SET_IS_LOGGED_IN', false)
+        commit('CLEAR_USER')
         router.push('/')
       }
     },
@@ -235,18 +237,14 @@ export default new Vuex.Store({
             localStorage.setItem('access_token', data.access_token)
           }
 
-          commit('SET_USER', data)
+          commit('SET_USER_DETAILS', data)
           commit('SET_IS_LOGGED_IN', true)
 
-          // this.$emit('showMessage', {
-          //   msg: 'Login successfull',
-          //   type: 'success',
-          // })
           router.push('/')
         })
         .catch(err => {
           console.log(err.response.data, '>>>> google sign in error')
-          // this.$emit('showMessage', { msg: err, type: 'error' })
+          Vue.$vToastify.error(err.response.data)
           commit('SET_IS_LOGGED_IN', false)
         })
     },
@@ -285,12 +283,12 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           console.log(data, '<<< user details')
-          commit('SET_USER', data)
+          commit('SET_USER_DETAILS', data)
           commit('SET_IS_LOGGED_IN', true)
           commit('SET_IS_FETCHING_USER_DETAILS', false)
         })
         .catch(err => {
-          console.log(err.response.data, '<<< error fetching user')
+          console.log(err, '<<< error fetching user')
           commit('SET_IS_FETCHING_USER_DETAILS', false)
 
           if (err.response.data.status === 401) {

@@ -98,7 +98,7 @@ export default {
               localStorage.setItem('access_token', data.access_token)
             }
 
-            this.$store.commit('SET_USER', data)
+            this.$store.commit('SET_USER_DETAILS', data)
             this.$store.commit('SET_IS_LOGGED_IN', true)
 
             this.$router.push('/')

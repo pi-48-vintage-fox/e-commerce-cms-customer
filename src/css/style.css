@@ -6,6 +6,8 @@
   --txt-color: #223346;
   --txt-dark: #ebeef1;
   --primary: #107a3c;
+  --primary-light: #1e8a4b;
+  --primary-lighter: #31aa64;
   --accent-dark: #e94326;
   --accent: #ca2f13;
   --accent2: #0091da;
@@ -152,10 +154,15 @@ p {
 
 .card-title {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.card-price {
+  font-weight: 600;
+  /* color: var(--grey-dark); */
 }
 
 .badge {
@@ -242,3 +249,29 @@ p {
   background-color: var(--accent2);
   transition: 0.1s left ease-out;
 } */
+
+/* .VueCarousel-navigation-next {
+  right: 100px !important ;
+} */
+
+.btn-transparent {
+  background: transparent;
+  border: none;
+}
+
+.btn-card,
+.btn-card:hover {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--primary-lighter);
+  letter-spacing: 2px;
+}
+
+.btn-card:hover:not(:disabled) {
+  filter: brightness(1.2);
+}
+
+.btn-card:disabled {
+  cursor: unset;
+}

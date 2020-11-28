@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
+  <div class="col-6 col-md-4 col-lg-3 mb-4">
     <div class="card">
       <span
         class="badge badge-pill badge-primary"
@@ -9,26 +9,22 @@
       <img :src="product.imageUrl" class="card-img-top" :alt="product.name" />
       <div class="card-body text-center">
         <h5 class="card-title text-truncate">{{ product.name }}</h5>
-        <p class="card-text mb-2">
+        <p class="card-price mb-2">
           {{ toCurrencyFormat(product.price) }}
         </p>
-        <button
-          v-if="product.stock === 0"
-          class="btn btn-secondary btn-sm"
-          disabled
-        >
+        <button v-if="product.stock === 0" class="btn btn-card btn-sm" disabled>
           Out of stock
         </button>
         <button
           v-else-if="isInCart(product.id)"
-          class="btn btn-secondary btn-sm"
+          class="btn btn-card btn-sm"
           disabled
         >
           Added to cart
         </button>
         <button
           v-else-if="isAddingCartItem == product.id"
-          class="btn btn-success btn-sm"
+          class="btn btn-card btn-sm"
           disabled
         >
           Adding to cart
@@ -40,7 +36,7 @@
         </button>
         <button
           v-else-if="!isInCart(product.id)"
-          class="btn btn-success btn-sm"
+          class="btn btn-card btn-sm"
           @click="
             addProductToCart({
               CartId: cart.id,

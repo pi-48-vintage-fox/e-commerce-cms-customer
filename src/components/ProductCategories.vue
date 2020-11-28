@@ -6,7 +6,7 @@
         class="category-items d-flex justify-content-center align-items-center"
       >
         <div
-          class="container d-flex flex-md-row flex-sm-column justify-content-md-around align-items-center fullwidth"
+          class="container d-flex flex-column flex-md-row justify-content-md-around align-items-center fullwidth"
         >
           <div
             class="category-item click py-3"

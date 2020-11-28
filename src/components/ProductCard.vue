@@ -1,6 +1,11 @@
 <template>
-  <div class="col-3 mb-4">
+  <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
     <div class="card">
+      <span
+        class="badge badge-pill badge-primary"
+        style="position:absolute;top: 10px; left: 10px;width: fit-content;"
+        >{{ product.ProductCategory.name }}</span
+      >
       <img :src="product.imageUrl" class="card-img-top" :alt="product.name" />
       <div class="card-body text-center">
         <h5 class="card-title text-truncate">{{ product.name }}</h5>
@@ -23,7 +28,7 @@
         </button>
         <button
           v-else-if="isAddingCartItem == product.id"
-          class="btn btn-primary btn-sm"
+          class="btn btn-success btn-sm"
           disabled
         >
           Adding to cart
@@ -35,7 +40,7 @@
         </button>
         <button
           v-else-if="!isInCart(product.id)"
-          class="btn btn-primary btn-sm"
+          class="btn btn-success btn-sm"
           @click="
             addProductToCart({
               CartId: cart.id,

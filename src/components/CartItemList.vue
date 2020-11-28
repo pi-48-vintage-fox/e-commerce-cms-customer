@@ -14,24 +14,21 @@
             class="card-body d-flex flex-column justify-content-between h-100"
           >
             <div>
-              <h5 class="card-title">{{ cartitem.Product.name }}</h5>
-              <p class="card-text text-success">
+              <div
+                class="d-flex flex-row justify-content-between align-items-start"
+              >
+                <h5 class="card-title">{{ cartitem.Product.name }}</h5>
+                <span class="badge badge-pill badge-primary">{{
+                  cartitem.Product.ProductCategory.name
+                }}</span>
+              </div>
+              <h4 class="card-text text-success">
                 {{ toCurrencyFormat(cartitem.Product.price) }}
-              </p>
+              </h4>
             </div>
 
             <div class="d-flex flex-row justify-content-between">
-              <p>Stock: {{ cartitem.Product.stock }}</p>
               <div class="d-flex flex-row">
-                <i
-                  class="material-icons mr-3 btn-delete click"
-                  @click="
-                    deleteCartItem({
-                      CartProductId: cartitem.id,
-                    })
-                  "
-                  >delete_outline</i
-                >
                 <i
                   v-if="cartitem.quantity <= 1"
                   class="material-icons mr-2 md-dark md-inactive"
@@ -69,7 +66,17 @@
                   "
                   >add_circle</i
                 >
+                <p class="ml-3">Stock: {{ cartitem.Product.stock }}</p>
               </div>
+              <i
+                class="material-icons mr-3 btn-delete click"
+                @click="
+                  deleteCartItem({
+                    CartProductId: cartitem.id,
+                  })
+                "
+                >delete_outline</i
+              >
             </div>
           </div>
         </div>
@@ -99,6 +106,9 @@ export default {
       console.log(payload, '<<<< payload delete cart item')
       this.$store.dispatch('deleteCartItem', payload)
     },
+  },
+  created() {
+    console.log(this.cartitem)
   },
 }
 </script>

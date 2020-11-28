@@ -8,7 +8,7 @@
     :paginationPosition="`bottom-overlay`"
   >
     <slide v-for="banner in banners" :key="banner.id">
-      <img :src="banner.imageUrl" />
+      <img class="banner-img" :src="banner.imageUrl" />
     </slide>
   </carousel>
 </template>

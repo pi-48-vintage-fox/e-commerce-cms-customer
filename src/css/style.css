@@ -275,3 +275,7 @@ p {
 .btn-card:disabled {
   cursor: unset;
 }
+
+.banner-img {
+  max-width: 100vw;
+}

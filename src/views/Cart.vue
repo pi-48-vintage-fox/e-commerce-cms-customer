@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container cartitem-list-container d-flex flex-row justify-content-center"
+    class="container-md cartitem-list-container d-flex flex-row justify-content-center"
   >
     <!-- <div
       v-if="isFetchingCart"
@@ -16,7 +16,7 @@
         <h1>Your cart is empty</h1>
       </div>
       <div v-else class="row">
-        <div class="cartitem-list col-8 justify-content-center mr-3">
+        <div class="cartitem-list justify-content-center mr-3">
           <CartItemList
             v-for="cartitem in cart.CartProducts"
             :key="cartitem.id"
@@ -26,7 +26,7 @@
           />
         </div>
         <div class="col-3">
-          <CartSummary v-if="grandTotalPrice" />
+          <CartSummary v-if="grandTotalPrice" class="fixed-bottom" />
         </div>
       </div>
     </div>

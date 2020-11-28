@@ -173,12 +173,12 @@ p {
 }
 
 .cartitem-list-container {
-  min-width: 1120px;
-  overflow: auto;
+  max-width: 800px;
+  /* overflow: auto; */
 }
 
 .cartitem-list-item .card {
-  min-height: 180px;
+  /* min-height: 180px; */
 }
 
 .cartitem-list-item .card:hover {
@@ -206,9 +206,7 @@ p {
 }
 
 .summary {
-  padding: 2rem;
-  border-radius: 12px;
-  background: white;
+  /* padding: 2rem; */
 }
 
 .VueCarousel {

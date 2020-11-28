@@ -15,14 +15,14 @@
           >
             <div>
               <div
-                class="d-flex flex-row justify-content-between align-items-start"
+                class="d-flex flex-sm-row flex-md-column justify-content-between align-items-start"
               >
                 <h5 class="card-title">{{ cartitem.Product.name }}</h5>
-                <span class="badge badge-pill badge-primary">{{
+                <span class="badge badge-pill badge-primary mb-2">{{
                   cartitem.Product.ProductCategory.name
                 }}</span>
               </div>
-              <h4 class="card-text text-success">
+              <h4 class="card-text text-success mb-2">
                 {{ toCurrencyFormat(cartitem.Product.price) }}
               </h4>
             </div>

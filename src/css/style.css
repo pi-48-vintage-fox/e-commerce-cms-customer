@@ -219,7 +219,7 @@ p {
 }
 
 .category-item {
-  width: 200px;
+  /* width: 200px; */
 }
 
 .category-text {
@@ -233,7 +233,7 @@ p {
   /* box-shadow: 0 8px 6px -6px var(--accent2); */
 }
 
-.select-highlight {
+/* .select-highlight {
   position: relative;
   bottom: 0;
   left: -400px;
@@ -241,4 +241,4 @@ p {
   width: 200px;
   background-color: var(--accent2);
   transition: 0.1s left ease-out;
-}
+} */

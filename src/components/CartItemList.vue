@@ -17,7 +17,7 @@
               <div
                 class="d-flex flex-sm-row flex-md-column justify-content-between align-items-start"
               >
-                <h5 class="card-title">{{ cartitem.Product.name }}</h5>
+                <h5 class="card-title mb-0">{{ cartitem.Product.name }}</h5>
                 <span class="badge badge-pill badge-primary mb-2">{{
                   cartitem.Product.ProductCategory.name
                 }}</span>

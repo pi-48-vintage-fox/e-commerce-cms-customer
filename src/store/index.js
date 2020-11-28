@@ -17,7 +17,7 @@ export default new Vuex.Store({
     isFetchingProductCategories: false,
     isFetchingProducts: false,
     isFetchingCart: false,
-    isAddingCartItem: false,
+    isAddingCartItem: '',
   },
   getters: {
     isLoggedIn: state => {
@@ -189,18 +189,19 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           console.log(data, '<<< result add product to cart')
-          Vue.$vToastify.success('Product added to cart')
-
+          Vue.$vToastify.success(`${data.name} added to cart`)
           dispatch('fetchCart')
         })
         .catch(err => {
-          commit('SET_IS_ADDING_CART_ITEM', null)
           Vue.$vToastify.error(
             `Failed adding the product to cart. ${err.response.data}`
           )
 
           console.log(err.response.data, '>>>> error add product to cart')
           dispatch('fetchCart')
+        })
+        .finally(() => {
+          commit('SET_IS_ADDING_CART_ITEM', null)
         })
     },
     signOut({ commit }) {

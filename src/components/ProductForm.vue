@@ -2,9 +2,9 @@
     <div class="col-3">
       <div
         class="card mx-auto my-4"
-        style="width: 13rem; height: 400px; margin-bottom"
+        style="width: 18rem; height: 400px; margin-bottom"
       >
-        <img :src="product.image_url" class="card-img-top" alt="..." />
+        <img :src="product.image_url" class="card-img-top" style="height: 220px;" alt="..." />
         <div class="card-body card-body">
           <h5 class="card-title">{{ product.name }}</h5>
           <h6 class="card-title">{{ product.price }}</h6>

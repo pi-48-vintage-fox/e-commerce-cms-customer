@@ -24,6 +24,7 @@ export default new Vuex.Store({
       axios({
         method: 'POST',
         url: 'http://localhost:3000/login',
+        // url: `https://e-commerce-bimodwien.herokuapp.com/login`,
         data: {
           email: payload.email,
           password: payload.password
@@ -44,6 +45,7 @@ export default new Vuex.Store({
       axios({
         method: 'POST',
         url: 'http://localhost:3000/register',
+        // url: `https://e-commerce-bimodwien.herokuapp.com/register`,
         data: {
           email: payload.email,
           password: payload.password
@@ -62,6 +64,7 @@ export default new Vuex.Store({
       axios({
         method: 'GET',
         url: 'http://localhost:3000/productCustomers',
+        // url: `https://e-commerce-bimodwien.herokuapp.com/productCustomers`,
         headers: {
           access_token: token
         }
@@ -79,6 +82,7 @@ export default new Vuex.Store({
       axios({
         method: 'GET',
         url: 'http://localhost:3000/carts',
+        // url: `https://e-commerce-bimodwien.herokuapp.com/carts`,
         headers: {
           access_token: token
         }
@@ -97,6 +101,7 @@ export default new Vuex.Store({
       axios({
         method: 'POST',
         url: `http://localhost:3000/carts/${payload.productId}`,
+        // url: `https://e-commerce-bimodwien.herokuapp.com/carts/${payload.productId}`,
         headers: {
           access_token: token
         },
@@ -128,6 +133,7 @@ export default new Vuex.Store({
       axios({
         method: 'PATCH',
         url: `http://localhost:3000/cartsTambah/${payload.id}`,
+        // url: `https://e-commerce-bimodwien.herokuapp.com/cartsTambah/${payload.id}`,
         headers: {
           access_token: token
         },
@@ -149,6 +155,7 @@ export default new Vuex.Store({
       axios({
         method: 'PATCH',
         url: `http://localhost:3000/cartsKurang/${payload.id}`,
+        // url: `https://e-commerce-bimodwien.herokuapp.com/cartsKurang/${payload.id}`,
         headers: {
           access_token: token
         },
@@ -169,6 +176,7 @@ export default new Vuex.Store({
       axios({
         method: 'DELETE',
         url: `http://localhost:3000/carts/${id}`,
+        // url: `https://e-commerce-bimodwien.herokuapp.com/carts/${id}`,
         headers: {
           access_token: token
         }
@@ -186,6 +194,7 @@ export default new Vuex.Store({
       axios({
         method: 'POST',
         url: 'http://localhost:3000/checkout',
+        // url: `https://e-commerce-bimodwien.herokuapp.com/checkout`,
         headers: {
           access_token: token
         }

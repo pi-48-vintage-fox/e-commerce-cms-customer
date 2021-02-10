@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@700&family=Montserrat:wght@700;800;900&family=Oswald:wght@500;600;700&family=Rubik:wght@400;500;600;700;900&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+  --bg-color: rgb(235, 245, 234);
+  --bg-dark: #223346;
+  --txt-color: #223346;
+  --txt-dark: #ebeef1;
+  --primary: #107a3c;
+  --primary-light: #1e8a4b;
+  --primary-lighter: #31aa64;
+  --accent-dark: #e94326;
+  --accent: #ca2f13;
+  --accent2: #0091da;
+  --accent3: #107a3c;
+  --placeholder-color: #aaa9a9;
+  --blue-lighter: #dee8ff;
+  --blue-light: #4f7add;
+  --blue: #305dc5;
+  --green: #28ac4f;
+  --red: rgb(226, 55, 55);
+  --grey-lightest: rgb(244, 244, 244);
+  --grey-lighter: rgb(232, 232, 232);
+  --grey-light: rgb(212, 212, 212);
+  --grey: rgb(164, 180, 185);
+  --grey-dark: rgb(148, 157, 160);
+  --grey-darker: rgb(101, 108, 110);
+  --grey-darkest: rgb(45, 48, 49);
+
+  --shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  --shadow2: 0 1px 10px 0 rgba(0, 0, 0, 0.5);
+
+  --left-nav-width: 250px;
+
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+ul {
+  list-style: none;
+}
+
+ul,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.message {
+  font-size: 0.85rem;
+}
+
+.form-group--alert,
+.form-group--error {
+  animation-name: shakeError;
+  animation-fill-mode: forwards;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-in-out;
+}
+
+.form-group--alert + .form-group__message {
+  display: block;
+  color: #f5b06c;
+}
+
+@keyframes shakeError {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(0.15rem);
+  }
+  40% {
+    transform: translateX(-0.15rem);
+  }
+  60% {
+    transform: translateX(0.15rem);
+  }
+  80% {
+    transform: translateX(-0.15rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/*
+ * ─── MATERIAL DESIGN ICONS ──────────────────────────────────────────────────────
+ */
+/* Rules for sizing the icon. */
+.material-icons.md-16 {
+  font-size: 16px;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.material-icons.green {
+  color: #28a745;
+}
+
+.material-icons.btn-delete {
+  color: rgb(121, 121, 121);
+}
+
+.material-icons.btn-delete:hover {
+  color: #a72828;
+}
+
+/*
+ * ─── MATERIAL DESIGN ICONS: END ─────────────────────────────────────────────────
+ */
+
+.card {
+  border-radius: 12px;
+  /* border: 1px solid rgb(246, 246, 246); */
+  border: 0;
+  overflow: hidden;
+  transition: all 0.25s ease-in-out;
+}
+
+.card:hover {
+  /* box-shadow: 0 20px 40px rgba(127, 221, 123, 0.6); */
+  box-shadow: 2px 12px 30px rgba(0, 0, 0, 0.15);
+  /* transform: translateY(-5px); */
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 400;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.card-price {
+  font-weight: 600;
+  /* color: var(--grey-dark); */
+}
+
+.badge {
+  vertical-align: top;
+}
+
+.badge-cart {
+  position: relative;
+  top: -0.5rem;
+  right: 1rem;
+}
+
+.click {
+  cursor: pointer;
+}
+
+.cartitem-list-container {
+  max-width: 800px;
+  /* overflow: auto; */
+}
+
+.cartitem-list-item .card {
+  /* min-height: 180px; */
+}
+
+.cartitem-list-item .card:hover {
+  /* transform: translateY(0); */
+}
+
+.cartitem-list-item .card-img {
+  /* height: 180px; */
+  width: 100%;
+  height: auto;
+}
+
+.cartitem-list-item .card-title {
+  font-size: 1.35rem;
+}
+
+.cartitem-list-item .card-text {
+  /* font-size: 1rem; */
+  font-weight: 700;
+}
+
+.cartitem-list-item .product-quantity {
+  width: 25px;
+  text-align: center;
+}
+
+.summary {
+  /* padding: 2rem; */
+}
+
+.VueCarousel {
+  text-align: center;
+}
+
+.category-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.category-item {
+  /* width: 200px; */
+}
+
+.category-text {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.selected {
+  color: var(--accent2);
+  /* border-bottom: 3px solid var(--accent2); */
+  /* box-shadow: 0 8px 6px -6px var(--accent2); */
+}
+
+/* .select-highlight {
+  position: relative;
+  bottom: 0;
+  left: -400px;
+  height: 4px;
+  width: 200px;
+  background-color: var(--accent2);
+  transition: 0.1s left ease-out;
+} */
+
+/* .VueCarousel-navigation-next {
+  right: 100px !important ;
+} */
+
+.btn-transparent {
+  background: transparent;
+  border: none;
+}
+
+.btn-card,
+.btn-card:hover {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--primary-lighter);
+  letter-spacing: 2px;
+}
+
+.btn-card:hover:not(:disabled) {
+  filter: brightness(1.2);
+}
+
+.btn-card:disabled {
+  cursor: unset;
+}
+
+.banner-img {
+  max-width: 100vw;
+}
